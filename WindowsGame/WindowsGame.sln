@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowsGame", "WindowsGame\WindowsGame.vcxproj", "{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Debug|x64.ActiveCfg = Debug|x64
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Debug|x64.Build.0 = Debug|x64
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Debug|x86.Build.0 = Debug|Win32
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Release|x64.ActiveCfg = Release|x64
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Release|x64.Build.0 = Release|x64
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Release|x86.ActiveCfg = Release|Win32
+		{5FBCF23C-00F1-41A9-8EED-2D0EC16185FE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79721555-72CB-4558-B93D-75A54C9BEB82}
+	EndGlobalSection
+EndGlobal
