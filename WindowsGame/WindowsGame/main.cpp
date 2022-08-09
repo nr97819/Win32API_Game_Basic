@@ -1,10 +1,15 @@
-﻿
+﻿#include "pch.h"
+
 #include "framework.h"
 #include "WindowsGame.h"
 
+#include "CCore.h"
+
 #define MAX_LOADSTRING 100
 
-HINSTANCE hInst;
+HWND g_hWnd;
+HINSTANCE g_hInst;
+
 WCHAR szTitle[MAX_LOADSTRING];
 WCHAR szWindowClass[MAX_LOADSTRING];
 
@@ -34,16 +39,37 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    if (FAILED(CCore::GetInst()->Init(g_hWnd, POINT{1280, 768})))
+    {
+        MessageBox(nullptr, L"Core 객체 초기화 실패", L"ERROR", MB_OK);
+
+        // main 함수 종료 (즉, 프로그램 종료)
+        return FALSE;
+    }
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSGAME));
 
     MSG msg;
-
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
+        // WM_QUIT이 들어왔다면, 종료한다.
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+        {
+            if (WM_QUIT == msg.message)
+                break;
+        }
+
+        // 메시지큐에 메시지가 들어온 모든 경우
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
+        }
+
+        // 그 이외의 모든 상태 (모든 frame)
+        else
+        {
+            CCore::GetInst()->Progress();
         }
     }
 
@@ -73,18 +99,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance;
-
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   g_hInst = hInstance;
+   g_hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
+   if (!g_hWnd)
    {
       return FALSE;
    }
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+   ShowWindow(g_hWnd, nCmdShow);
+   UpdateWindow(g_hWnd);
 
    return TRUE;
 }
@@ -99,24 +124,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                DialogBox(g_hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), g_hWnd, About);
                 break;
             case IDM_EXIT:
-                DestroyWindow(hWnd);
+                DestroyWindow(g_hWnd);
                 break;
             default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
+                return DefWindowProc(g_hWnd, message, wParam, lParam);
             }
         }
         break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            HDC hdc = BeginPaint(g_hWnd, &ps);
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
 
-            EndPaint(hWnd, &ps);
+            EndPaint(g_hWnd, &ps);
         }
         break;
     case WM_DESTROY:
