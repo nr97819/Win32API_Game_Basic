@@ -57,15 +57,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             if (WM_QUIT == msg.message)
                 break;
-        }
 
-        // 메시지큐에 메시지가 들어온 모든 경우
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            // 메시지큐에 메시지가 들어온 모든 경우
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
-
         // 그 이외의 모든 상태 (모든 frame)
         else
         {
@@ -139,7 +138,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(g_hWnd, &ps);
 
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            //Rectangle(hdc, 0, 0, 1280, 768);
 
             EndPaint(g_hWnd, &ps);
         }
