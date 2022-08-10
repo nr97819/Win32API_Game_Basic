@@ -8,6 +8,9 @@ private:
 	POINT		m_ptResolution;
 	HDC			m_hDC;
 
+	HBITMAP		m_hBit;
+	HDC			m_memDC;
+
 public:
 	int Init(HWND _hWnd, POINT _ptResolution);
 	void Progress();
