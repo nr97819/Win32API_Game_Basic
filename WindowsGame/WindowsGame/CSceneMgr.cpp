@@ -27,10 +27,25 @@ void CSceneMgr::Init()
 {
 	// 모든 Scene 생성
 	m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Start();
+	m_arrScene[(UINT)SCENE_TYPE::START]->SetName(L"Start Scene");
+
 	//m_arrScene[(UINT)SCENE_TYPE::TOOL] = new CScene_Tool();
 	//m_arrScene[(UINT)SCENE_TYPE::STAGE_01] = new CScene_Stage_01();
 	//m_arrScene[(UINT)SCENE_TYPE::STAGE_02] = new CScene_Stage_02();
 
 	// 현재 Scene 지정
 	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];
+	m_pCurScene->Enter(); // Scene에 진입
+}
+
+void CSceneMgr::Update()
+{
+	// 현재 Scene을 Update
+	m_pCurScene->Update();
+}
+
+void CSceneMgr::Render(HDC _dc)
+{
+	// 현재 Scene을 Render
+	m_pCurScene->Render(_dc); // memDC를 받아서 전달
 }

@@ -15,11 +15,22 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 
+	// Update/Render는 모든 Scene이 같아서, 그냥 부모에서 정의함
+	void Update();
+	void Render(HDC _dc);
+
+	virtual void Enter() = 0; // 해당 Scene으로 진입 시 호출
+	virtual void Exit() = 0; // 해당 Scene에서 탈출 시 호출
+
+protected: // 자식에서 필요한 내용
+	// Inline 처리 (호출 비용 절약)
+	void AddObject(CObject* _pObj, GROUP_TYPE _eType)
+	{
+		m_arrObj[(UINT)_eType].push_back(_pObj);
+	}
+
 public:
 	CScene();
 	virtual ~CScene();
-
-public:
-	void Init();
 };
 

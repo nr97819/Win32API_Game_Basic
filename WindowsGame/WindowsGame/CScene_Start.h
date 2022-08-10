@@ -4,7 +4,9 @@
 class CScene_Start :
     public CScene
 {
-private:
+public:
+    virtual void Enter() override;
+    virtual void Exit() override;
 
 public:
     CScene_Start();

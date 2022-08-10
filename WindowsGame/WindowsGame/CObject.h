@@ -15,6 +15,11 @@ public:
 	Vec2 GetScale() { return m_vScale; };
 
 public:
+	// Update/Render는 모든 Object가 같아서, 그냥 부모에서 정의함
+	void Update();
+	void Render(HDC _dc);
+
+public:
 	CObject();
 	virtual ~CObject();
 };

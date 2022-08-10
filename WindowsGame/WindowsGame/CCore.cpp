@@ -7,17 +7,13 @@
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
 
-CObject g_obj;
-
 CCore::CCore()
 	: m_hWnd(0)
 	, m_ptResolution{}
 	, m_hDC(0)
 	, m_hBit(0)
 	, m_memDC(0)
-{
-
-}
+{}
 
 CCore::~CCore()
 {
@@ -57,65 +53,30 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 	CKeyMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
 
-	g_obj.SetPos(Vec2{ m_ptResolution.x / 2.f, m_ptResolution.y / 2.f });
-	g_obj.SetScale(Vec2{ 100.f, 100.f });
-
 	return S_OK;
 }
 
 void CCore::Progress()
 {
-	Update();
-
-	Render();
-}
-
-void CCore::Update()
-{
 	// Manager Update
 	CTimeMgr::GetInst()->Update();
 	CKeyMgr::GetInst()->Update();
 
-	Vec2 vPos = g_obj.GetPos();
+	CSceneMgr::GetInst()->Update();
 
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::LEFT) == KEY_STATE::HOLD)
-	{
-		vPos.x -= 100.f * fDT;
-	}
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::RIGHT) == KEY_STATE::HOLD)
-	{
-		vPos.x += 100.f * fDT;
-	}
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::UP) == KEY_STATE::HOLD)
-	{
-		vPos.y -= 100.f * fDT;
-	}
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::DOWN) == KEY_STATE::HOLD)
-	{
-		vPos.y += 100.f * fDT;
-	}
 
-	g_obj.SetPos(vPos);
-}
+	/************************/
+	/*		 Rendering		*/
+	/************************/
 
-void CCore::Render()
-{
 	// 화면 Clear
 	Rectangle(m_memDC
 		, -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);
 
-	// 그리기
-	Vec2 vPos = g_obj.GetPos();
-	Vec2 vScale = g_obj.GetScale();
-
-	Rectangle(m_memDC
-		, int(vPos.x - vScale.x / 2.f)
-		, int(vPos.y - vScale.y / 2.f)
-		, int(vPos.x + vScale.x / 2.f)
-		, int(vPos.y + vScale.y / 2.f)
-	);
+	// Scene 렌더링 (내부적으로 Object들도 모두 Render 타고 가는 구조)
+	CSceneMgr::GetInst()->Render(m_memDC);
 
 	// 최종 화면 출력
-	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y, 
+	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y,
 		m_memDC, 0, 0, SRCCOPY); // SRCCOPY : memory copy option
 }
