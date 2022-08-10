@@ -15,5 +15,8 @@ public:
 private:
 	void Update();
 	void Render();
+
+public:
+	HWND GetMainHwnd() { return m_hWnd; }
 };
 

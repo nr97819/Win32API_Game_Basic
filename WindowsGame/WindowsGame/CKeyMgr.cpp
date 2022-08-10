@@ -10,3 +10,7 @@ CKeyMgr::~CKeyMgr()
 {
 
 }
+
+void CKeyMgr::Init()
+{
+}

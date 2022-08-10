@@ -3,6 +3,8 @@
 
 #include "CObject.h"
 
+#include "CTimeMgr.h"
+#include "CKeyMgr.h"
 
 CObject g_obj;
 
@@ -36,9 +38,12 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 
 	m_hDC = GetDC(m_hWnd);
 
+	// Manager 초기화
+	CTimeMgr::GetInst()->Init();
+	CKeyMgr::GetInst()->Init();
 
-	g_obj.m_ptPos = POINT{ m_ptResolution.x / 2, m_ptResolution.y / 2 };
-	g_obj.m_ptScale = POINT{ 100, 100 };
+	g_obj.SetPos(Vec2{ m_ptResolution.x / 2.f, m_ptResolution.y / 2.f });
+	g_obj.SetScale(Vec2{ 100.f, 100.f });
 
 
 	return S_OK;
@@ -47,29 +52,39 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 void CCore::Progress()
 {
 	Update();
+
 	Render();
 }
 
 void CCore::Update()
 {
+	// Manager Update
+	CTimeMgr::GetInst()->Update();
+
+	Vec2 vPos = g_obj.GetPos();
+
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		g_obj.m_ptPos.x += -1;
+		vPos.x -= 100.f * fDT;
 	}
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		g_obj.m_ptPos.x += +1;
+		vPos.x += 100.f * fDT;
 	}
 
+	g_obj.SetPos(vPos);
 }
 
 void CCore::Render()
 {
-	// 그리기 (Render)
+	// 그리기
+	Vec2 vPos = g_obj.GetPos();
+	Vec2 vScale = g_obj.GetScale();
+
 	Rectangle(m_hDC
-		, g_obj.m_ptPos.x - g_obj.m_ptScale.x / 2
-		, g_obj.m_ptPos.y - g_obj.m_ptScale.y / 2
-		, g_obj.m_ptPos.x + g_obj.m_ptScale.x / 2
-		, g_obj.m_ptPos.y + g_obj.m_ptScale.y / 2
+		, int(vPos.x - vScale.x / 2.f)
+		, int(vPos.y - vScale.y / 2.f)
+		, int(vPos.x + vScale.x / 2.f)
+		, int(vPos.y + vScale.y / 2.f)
 	);
 }
