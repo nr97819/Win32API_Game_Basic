@@ -5,6 +5,7 @@
 
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
+#include "CSceneMgr.h"
 
 CObject g_obj;
 
@@ -54,6 +55,7 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 	// Manager ÃÊ±âÈ­
 	CTimeMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
+	CSceneMgr::GetInst()->Init();
 
 	g_obj.SetPos(Vec2{ m_ptResolution.x / 2.f, m_ptResolution.y / 2.f });
 	g_obj.SetScale(Vec2{ 100.f, 100.f });
@@ -83,6 +85,14 @@ void CCore::Update()
 	if (CKeyMgr::GetInst()->GetKeyState(KEY::RIGHT) == KEY_STATE::HOLD)
 	{
 		vPos.x += 100.f * fDT;
+	}
+	if (CKeyMgr::GetInst()->GetKeyState(KEY::UP) == KEY_STATE::HOLD)
+	{
+		vPos.y -= 100.f * fDT;
+	}
+	if (CKeyMgr::GetInst()->GetKeyState(KEY::DOWN) == KEY_STATE::HOLD)
+	{
+		vPos.y += 100.f * fDT;
 	}
 
 	g_obj.SetPos(vPos);

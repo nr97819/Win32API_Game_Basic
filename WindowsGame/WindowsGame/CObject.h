@@ -1,5 +1,6 @@
 #pragma once
 
+// 모든 Object들의 부모 역할 (사용될 목적 X)
 class CObject
 {
 private:
@@ -15,6 +16,6 @@ public:
 
 public:
 	CObject();
-	~CObject();
+	virtual ~CObject();
 };
 
