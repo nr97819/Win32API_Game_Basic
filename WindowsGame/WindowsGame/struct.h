@@ -6,6 +6,27 @@ struct Vec2
 	float y;
 
 public:
+	// Vector의 대각선 길이 반환
+	float Length()
+	{
+		return sqrt((x * x) + (y * y));
+	}
+
+	// Vector의 Normailize 함수
+	Vec2& Normalize()
+	{
+		float fLen = Length();
+
+		// 제로 벡터 예외 처리 -> 길이가 0인 경우 = (x=0 && y=0)
+		assert(fLen != 0.f);
+
+		x /= fLen;
+		y /= fLen;
+
+		return *this;
+	}
+
+public:
 	Vec2& operator = (POINT _pt)
 	{
 		x = (float)_pt.x;

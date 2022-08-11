@@ -25,9 +25,8 @@ void CScene_Start::Enter()
 	pObj->SetScale(Vec2(100.f, 100.f));
 	AddObject(pObj, GROUP_TYPE::DEFAULT);
 
-
 	// Monster Ãß°¡
-	int iMonCount = 16;
+	UINT iMonCount = 16;
 	float fMoveDist = 25.f;
 	float fObjScale = 50.f;
 
