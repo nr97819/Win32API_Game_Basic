@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CPlayer.h" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CPlayer.cpp" />

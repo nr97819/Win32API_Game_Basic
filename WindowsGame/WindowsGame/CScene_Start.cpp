@@ -21,7 +21,7 @@ void CScene_Start::Enter()
 	// Player Ãß°¡
 	CObject* pObj;
 	pObj = new CPlayer();
-	pObj->SetPos(Vec2(100.f, 100.f));
+	pObj->SetPos(Vec2(300.f, 300.f));
 	pObj->SetScale(Vec2(100.f, 100.f));
 	AddObject(pObj, GROUP_TYPE::DEFAULT);
 

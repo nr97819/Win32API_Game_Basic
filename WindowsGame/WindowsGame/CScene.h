@@ -22,7 +22,7 @@ public:
 	virtual void Enter() = 0; // 해당 Scene으로 진입 시 호출
 	virtual void Exit() = 0; // 해당 Scene에서 탈출 시 호출
 
-protected: // 자식에서 필요한 내용
+public:
 	// Inline 처리 (호출 비용 절약)
 	void AddObject(CObject* _pObj, GROUP_TYPE _eType)
 	{
