@@ -14,5 +14,10 @@ using std::wstring;
 #include <math.h>
 #include <assert.h>
 
+
+// Transparent() 함수를 위한 라이브러리
+#pragma comment(lib, "Msimg32.lib")
+
+
 #include "define.h"
 #include "struct.h"

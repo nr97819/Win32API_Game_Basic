@@ -21,7 +21,7 @@ void CPathMgr::Init()
 	GetCurrentDirectory(255, m_szContentPath);
 
 	// 상위 폴더로 이동
-	int iLen = wcslen(m_szContentPath);
+	int iLen = (int)wcslen(m_szContentPath);
 	for (int i = iLen - 1; 0 <= i; --i)
 	{
 		if ('\\' == m_szContentPath[i])

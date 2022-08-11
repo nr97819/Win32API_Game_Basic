@@ -16,11 +16,12 @@ public:
 	void Progress();
 
 private:
-	void Update();
-	void Render();
+	/*void Update();
+	void Render();*/
 
 public:
 	HWND GetMainHwnd() { return m_hWnd; }
+	HDC GetMainDC() { return m_hDC; }
 	POINT GetResolution() { return m_ptResolution; }
 };
 

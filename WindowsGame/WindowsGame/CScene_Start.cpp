@@ -8,8 +8,6 @@
 
 #include "CCore.h"
 
-#include "CPathMgr.h"
-#include "CTexture.h"
 
 CScene_Start::CScene_Start()
 {
@@ -21,16 +19,6 @@ CScene_Start::~CScene_Start()
 
 void CScene_Start::Enter()
 {
-	// Texture 로드
-	CTexture* pTex = new CTexture();
-
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += L"texture\\panda.bmp";
-	pTex->Load(strFilePath);
-
-	//delete pTex;
-
-
 	// Player 추가
 	CObject* pObj;
 	pObj = new CPlayer();
