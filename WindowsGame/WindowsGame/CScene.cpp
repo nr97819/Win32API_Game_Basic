@@ -37,7 +37,7 @@ void CScene::Update()
 	}
 }
 
-void CScene::finalupdate()
+void CScene::FinalUpdate()
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
 	{
@@ -45,7 +45,7 @@ void CScene::finalupdate()
 		{
 			if (nullptr != m_arrObj[i][j])
 			{
-				m_arrObj[i][j]->finalupdate(); // 모든 object에 finalupdate 그대로 호출시킴
+				m_arrObj[i][j]->FinalUpdate(); // 모든 object에 finalupdate 그대로 호출시킴
 			}
 		}
 	}

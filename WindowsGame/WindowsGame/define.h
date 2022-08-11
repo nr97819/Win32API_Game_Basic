@@ -11,8 +11,10 @@
 								type();\
 								~type();
 
+
 #define fDT CTimeMgr::GetInst()->GetfDT()
 #define DT CTimeMgr::GetInst()->GetDT()
+
 
 #define KEY_CHECK(key, state) CKeyMgr::GetInst()->GetKeyState(key) == state
 #define KEY_HOLD(key) KEY_CHECK(key, KEY_STATE::HOLD)
@@ -21,6 +23,7 @@
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
 
 #define PI 3.1415926535f
+
 
 enum class GROUP_TYPE
 {
@@ -40,5 +43,21 @@ enum class SCENE_TYPE
 	STAGE_01,
 	STAGE_02,
 	
+	END
+};
+
+enum class BRUSH_TYPE
+{
+	HOLLOW,
+
+	END
+};
+
+enum class PEN_TYPE
+{
+	RED,
+	GREEN,
+	BLUE,
+
 	END
 };

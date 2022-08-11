@@ -33,6 +33,29 @@ public:
 		y = (float)_pt.y;
 	}
 
+	Vec2 operator + (Vec2 _vOther)
+	{
+		return Vec2(x += _vOther.x, y += _vOther.y);
+	}
+
+	Vec2 operator - (Vec2 _vOther)
+	{
+		return Vec2(x -= _vOther.x, y -= _vOther.y);
+	}
+
+	Vec2 operator * (Vec2 _vOther)
+	{
+		return Vec2(x *= _vOther.x, y *= _vOther.y);
+	}
+
+	Vec2 operator / (Vec2 _vOther)
+	{
+		// Divided by Zero 예외 처리
+		assert(!(0.f == _vOther.x || 0.f == _vOther.y));
+
+		return Vec2(x /= _vOther.x, y /= _vOther.y);
+	}
+
 public:
 	Vec2()
 		: x(0.f)

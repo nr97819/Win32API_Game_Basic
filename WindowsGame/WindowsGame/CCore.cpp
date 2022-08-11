@@ -14,6 +14,8 @@ CCore::CCore()
 	, m_hDC(0)
 	, m_hBit(0)
 	, m_memDC(0)
+	, m_arrBrush{}
+	, m_arrPen{}
 {}
 
 CCore::~CCore()
@@ -23,6 +25,12 @@ CCore::~CCore()
 	// 더블 버퍼링 객체들 삭제
 	DeleteDC(m_memDC); // CreateCompatibleDC로 생성한 경우, DeleteDC() 지우라고 MSDN에 써있음
 	DeleteObject(m_hBit);
+
+	// 미리 생성한 Pen 객체들 메모리 해제
+	for (int i = 0; i < (int)PEN_TYPE::END; ++i)
+	{
+		DeleteObject(m_arrPen[i]);
+	}
 }
 
 int CCore::Init(HWND _hWnd, POINT _ptResolution)
@@ -48,6 +56,9 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 
 	HBITMAP hOldBit = (HBITMAP)SelectObject(m_memDC, m_hBit);
 	DeleteObject(hOldBit);
+
+	// 자주 사용하는 Brush / Pen 생성
+	CreateBrushPen();
 
 	// Manager 초기화
 	CPathMgr::GetInst()->Init(); // 가장 먼저 초기화하는 것 주의 (Res 로드 시, 경로가 미리 잡혀야 한다.)
@@ -84,4 +95,15 @@ void CCore::Progress()
 
 	// 창 상단에, 시간 정보 출력
 	CTimeMgr::GetInst()->Render();
+}
+
+void CCore::CreateBrushPen()
+{
+	// Hollow 브러시
+	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH); // delete 안해도 됨
+
+	// Red / Green / Brush 펜
+	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 }

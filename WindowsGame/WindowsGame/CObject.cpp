@@ -19,10 +19,10 @@ CObject::~CObject()
 	}
 }
 
-void CObject::finalupdate()
+void CObject::FinalUpdate()
 {
 	if (m_pCollider)
-		m_pCollider->finalupdate();
+		m_pCollider->FinalUpdate();
 }
 
 void CObject::Render(HDC _dc)
@@ -34,10 +34,21 @@ void CObject::Render(HDC _dc)
 		, int(m_vPos.x + m_vScale.x / 2.f)
 		, int(m_vPos.y + m_vScale.y / 2.f)
 	);
+
+	// Component ·»´õ¸µ
+	component_render(_dc);
 }
 
 void CObject::CreateCollider()
 {
 	m_pCollider = new CCollider();
 	m_pCollider->m_pOwner = this;
+}
+
+void CObject::component_render(HDC _dc)
+{
+	if (nullptr != m_pCollider)
+	{
+		m_pCollider->Render(_dc);
+	}
 }

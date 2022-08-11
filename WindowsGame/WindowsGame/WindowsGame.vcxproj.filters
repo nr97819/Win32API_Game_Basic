@@ -68,6 +68,9 @@
     <Filter Include="Engine\07. Component">
       <UniqueIdentifier>{98b9084a-7d47-499a-bfe4-6e9a559b959d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\08. Module">
+      <UniqueIdentifier>{c8028850-c664-4905-923d-bd52a864a33f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsGame.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="CCollider.h">
       <Filter>Engine\07. Component</Filter>
     </ClInclude>
+    <ClInclude Include="SelectGDI.h">
+      <Filter>Engine\08. Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCore.cpp">
@@ -187,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\07. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGDI.cpp">
+      <Filter>Engine\08. Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

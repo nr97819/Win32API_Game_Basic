@@ -4,13 +4,13 @@
 #include "CKeyMgr.h"
 #include "CTimeMgr.h"
 #include "CSceneMgr.h"
+#include "CResMgr.h"
 
 #include "CMissile.h"
 #include "CScene.h"
 
 #include "CTexture.h"
-
-#include "CResMgr.h"
+#include "CCollider.h"
 
 
 CPlayer::CPlayer()
@@ -19,7 +19,8 @@ CPlayer::CPlayer()
 	// Texture 로드
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
 
-	CreateCollider();
+	CreateCollider(); // Collider 컴포넌트 생성
+	GetCollider()->SetScale(Vec2(100.f, 100.f)); // Collider의 크기도 지정해준다.
 }
 
 CPlayer::~CPlayer()
@@ -84,6 +85,9 @@ void CPlayer::Render(HDC _dc)
 		, iWidth
 		, iHeight
 		, RGB(255, 0, 255));
+
+	// Component 렌더링 -> Render()를 오버라이딩 해서, component_render()도 따로 써줘야 함
+	component_render(_dc);
 }
 
 void CPlayer::CreateMissile()
