@@ -18,6 +18,8 @@ CPlayer::CPlayer()
 {
 	// Texture ·Îµå
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
+
+	CreateCollider();
 }
 
 CPlayer::~CPlayer()

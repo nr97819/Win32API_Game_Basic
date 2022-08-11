@@ -42,6 +42,9 @@ void CSceneMgr::Update()
 {
 	// 현재 Scene을 Update
 	m_pCurScene->Update();
+
+	// 필요한 작업을 마무리 해주는 update (컴포넌트 따위의 update)
+	m_pCurScene->finalupdate();
 }
 
 void CSceneMgr::Render(HDC _dc)

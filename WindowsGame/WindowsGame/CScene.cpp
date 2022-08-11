@@ -37,6 +37,20 @@ void CScene::Update()
 	}
 }
 
+void CScene::finalupdate()
+{
+	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
+	{
+		for (size_t j = 0; j < m_arrObj[i].size(); ++j) // iterator 사용 안 한 이유 알고 넘어가기 !!
+		{
+			if (nullptr != m_arrObj[i][j])
+			{
+				m_arrObj[i][j]->finalupdate(); // 모든 object에 finalupdate 그대로 호출시킴
+			}
+		}
+	}
+}
+
 void CScene::Render(HDC _dc)
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)

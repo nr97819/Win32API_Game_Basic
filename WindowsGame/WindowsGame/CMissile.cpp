@@ -11,6 +11,8 @@ CMissile::CMissile()
 	// 정규화 공식 이용 (대각선의 길이로 나눈 뒤, 둘을 더한다)
 	m_vDir.Normalize();
 	// 정규화 함수 -> 직접 구현
+
+	CreateCollider();
 }
 
 CMissile::~CMissile()

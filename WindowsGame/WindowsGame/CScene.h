@@ -17,6 +17,7 @@ public:
 
 	// Update/Render는 모든 Scene이 같아서, 그냥 부모에서 정의함
 	void Update();
+	void finalupdate();
 	void Render(HDC _dc);
 
 	virtual void Enter() = 0; // 해당 Scene으로 진입 시 호출
