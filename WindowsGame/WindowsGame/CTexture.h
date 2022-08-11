@@ -19,8 +19,11 @@ public:
 
     HDC GetDC() { return m_dc; }
 
-public:
+private:
     CTexture();
     ~CTexture();
+
+    // ResMgr에서만 Texture를 생성할 수 있다. (생성자 잠금)
+    friend class CResMgr;
 };
 

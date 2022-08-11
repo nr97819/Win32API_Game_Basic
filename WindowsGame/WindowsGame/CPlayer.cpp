@@ -8,28 +8,20 @@
 #include "CMissile.h"
 #include "CScene.h"
 
-#include "CPathMgr.h"
 #include "CTexture.h"
+
+#include "CResMgr.h"
 
 
 CPlayer::CPlayer()
 	: m_pTex(nullptr)
 {
 	// Texture ·Îµå
-	m_pTex = new CTexture();
-
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += L"texture\\panda.bmp";
-	m_pTex->Load(strFilePath);
+	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
 }
 
 CPlayer::~CPlayer()
 {
-	if (nullptr != m_pTex)
-	{
-		delete m_pTex;
-		m_pTex = nullptr;
-	}
 }
 
 void CPlayer::Update()
