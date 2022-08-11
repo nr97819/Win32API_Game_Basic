@@ -6,6 +6,7 @@
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
+#include "CPathMgr.h"
 
 CCore::CCore()
 	: m_hWnd(0)
@@ -49,6 +50,7 @@ int CCore::Init(HWND _hWnd, POINT _ptResolution)
 	DeleteObject(hOldBit);
 
 	// Manager 초기화
+	CPathMgr::GetInst()->Init(); // 가장 먼저 초기화하는 것 주의 (Res 로드 시, 경로가 미리 잡혀야 한다.)
 	CTimeMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
@@ -79,4 +81,7 @@ void CCore::Progress()
 	// 최종 화면 출력
 	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y,
 		m_memDC, 0, 0, SRCCOPY); // SRCCOPY : memory copy option
+
+	// 창 상단에, 시간 정보 출력
+	CTimeMgr::GetInst()->Render();
 }

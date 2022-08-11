@@ -37,12 +37,16 @@ void CTimeMgr::Update()
 	m_dDT = (double)(m_llCurCount.QuadPart - m_llPrevCount.QuadPart)
 		/ (double)m_llFrequency.QuadPart; // QuadPart에 실제 longlong값이 들어있다.
 
-// PrevCount를 최신 값으로 갱신
+	// PrevCount를 최신 값으로 갱신
 	m_llPrevCount = m_llCurCount;
 
 	++m_iCallCount;
 	// deltaTime을 누적시키면, 현재까지 흐른 총 흐른 시간이 된다.
 	m_dAcc += m_dDT;
+}
+
+void CTimeMgr::Render()
+{
 	if (m_dAcc >= 1.)
 	{
 		// 초당 프레임 횟수 갱신
@@ -51,8 +55,8 @@ void CTimeMgr::Update()
 		// Windows 창 bar에 출력
 		wchar_t szBuffer[255] = {};
 		swprintf_s(szBuffer, L"FPS : %d, DT : %lf", m_iFPS, m_dDT);
-
-		// [출력 텍스트 임시 비활성화]
+		
+		// 창 상단에 출력
 		SetWindowText(CCore::GetInst()->GetMainHwnd(), szBuffer);
 
 		// 값들 0으로 다시 초기화
