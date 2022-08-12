@@ -2,6 +2,8 @@
 #include "CMonster.h"
 
 #include "CTimeMgr.h"
+#include "CCollider.h"
+
 
 CMonster::CMonster()
 	: m_vCenterPos{}
@@ -10,6 +12,8 @@ CMonster::CMonster()
 	, m_iDir(1)
 {
 	CreateCollider();
+	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	GetCollider()->SetScale(Vec2(60.f, 60.f));
 }
 
 CMonster::~CMonster()

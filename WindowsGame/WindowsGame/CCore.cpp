@@ -7,6 +7,7 @@
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
 #include "CPathMgr.h"
+#include "CCollisionMgr.h"
 
 CCore::CCore()
 	: m_hWnd(0)
@@ -75,13 +76,13 @@ void CCore::Progress()
 	CTimeMgr::GetInst()->Update();
 	CKeyMgr::GetInst()->Update();
 
-	CSceneMgr::GetInst()->Update();
+	CSceneMgr::GetInst()->Update(); // 모든 Scene과 그 아래 Object들 업데이트
+	CCollisionMgr::GetInst()->Update(); // 업데이트 후 변동 된 정보에서, 새로운 충돌 있는지 검증
 
 
 	/************************/
 	/*		 Rendering		*/
 	/************************/
-
 	// 화면 Clear
 	Rectangle(m_memDC
 		, -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);

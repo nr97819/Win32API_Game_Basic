@@ -6,10 +6,15 @@
 
 #include "SelectGDI.h"
 
+
+UINT CCollider::g_iNextID = 0;
+
 CCollider::CCollider()
 	: m_pOwner(nullptr)
 	, m_vOffsetPos{}
 	, m_vFinalPos{}
+	, m_vScale{}
+	, m_iID(g_iNextID++) // ID 발급 및 static 값 후위 연산 ++1
 {
 }
 

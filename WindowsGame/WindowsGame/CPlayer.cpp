@@ -20,7 +20,8 @@ CPlayer::CPlayer()
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
 
 	CreateCollider(); // Collider 컴포넌트 생성
-	GetCollider()->SetScale(Vec2(100.f, 100.f)); // Collider의 크기도 지정해준다.
+	GetCollider()->SetOffsetPos(Vec2(0.f, 5.f));
+	GetCollider()->SetScale(Vec2(40.f, 40.f)); // Collider의 크기도 지정해준다.
 }
 
 CPlayer::~CPlayer()
