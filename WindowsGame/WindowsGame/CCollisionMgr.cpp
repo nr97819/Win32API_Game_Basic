@@ -57,7 +57,7 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 		for (size_t j = 0; j < vecRight.size(); ++j)
 		{
 			// Collider 컴포넌트가 없다면 빠르게 Pass
-			if (nullptr == vecRight[i]->GetCollider())
+			if (nullptr == vecRight[j]->GetCollider())
 				continue;
 
 			// 같은 그룹의 자신과의 비교를 방지한다. (원본이므로, 주소가 같은 경우 예외)
@@ -66,7 +66,7 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 
 			// 자주 접근하므로, 미리 선언해서 사용
 			CCollider* pLeftCol = vecLeft[i]->GetCollider();
-			CCollider* pRightCol = vecRight[i]->GetCollider();
+			CCollider* pRightCol = vecRight[j]->GetCollider();
 
 			// 두 충돌체 고유의 조합 ID 값 생성 (두 충돌체를 통해서만 나올 수 있는 고유 값)
 			COLLIDER_ID ID;
@@ -120,7 +120,6 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				else
 				{
 					// 아무것도 안 함
-					// ...	
 				}
 			}
 		}
@@ -129,7 +128,18 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
 {
+	Vec2 vLeftPos = _pLeftCol->GetFinalPos();
+	Vec2 vLeftScale = _pLeftCol->GetScale();
 
+	Vec2 vRightPos = _pRightCol->GetFinalPos();
+	Vec2 vRightScale = _pRightCol->GetScale();
+
+	// 두 Collision의 범위가 겹쳐있다면 true 반환
+	if (abs(vLeftPos.x - vRightPos.x) < (vLeftScale.x + vRightScale.x) / 2.f
+		&& abs(vLeftPos.y - vRightPos.y) < (vLeftScale.y + vRightScale.y) / 2.f)
+	{
+		return true;
+	}
 
 	return false;
 }

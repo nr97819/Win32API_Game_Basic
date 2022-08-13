@@ -13,8 +13,8 @@ private:
 	Vec2			m_vFinalPos;	// finalupdate에서 매 프레임마다 계산되는 Collider의 최종 위치
 	Vec2			m_vScale;		// Collider(충돌체)의 크기
 
-	UINT			m_iID;			// 각각의 Collider들은 고유의 ID를 반드시 갖는다. 
-									// (누구와 누가 충돌했는지 검색하기 위해서)
+	UINT			m_iID;			// 각각의 Collider들은 고유의 ID를 반드시 갖는다. (누구와 누가 충돌했는지 확인용)
+	int				m_iCol;
 
 public:
 	void SetOffsetPos(Vec2 _vPos) { m_vOffsetPos = _vPos; }
@@ -22,6 +22,8 @@ public:
 
 	Vec2 GetOffsetPos() { return m_vOffsetPos; }
 	Vec2 GetScale() { return m_vScale; }
+
+	Vec2 GetFinalPos() { return m_vFinalPos; }
 
 	UINT GetID() { return m_iID; }
 

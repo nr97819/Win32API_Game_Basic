@@ -29,8 +29,8 @@ void CScene_Start::Enter()
 
 
 	// Monster Ãß°¡
-	UINT iMonCount = 16;
-	float fMoveDist = 25.f;
+	UINT iMonCount = 5;
+	float fMoveDist = 0.f;
 	float fObjScale = 50.f;
 
 	Vec2 vResolution = CCore::GetInst()->GetResolution();
