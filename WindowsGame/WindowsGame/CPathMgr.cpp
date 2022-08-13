@@ -31,7 +31,7 @@ void CPathMgr::Init()
 		}
 	}
 
-	wcscat_s(m_szContentPath, 255, L"\\bin\\content\\");
+	wcscat_s(m_szContentPath, 255, L"\\bin_release\\content\\");
 
 	//SetWindowText(CCore::GetInst()->GetMainHwnd(), m_szContentPath);
 }
