@@ -24,7 +24,8 @@ void CEventMgr::Update()
 	*		Dead 오브젝트 모두 delete		*
 	*************************************/
 	// Event Manager 자체가 CCore::Update()의 가장마지막 시점에 호출되므로,
-	// 이 시점에서 Event를 등록하게 되면, 1 프레임 살 수 있게 된다.
+	//  이 시점에서 Object를 delete하게 되면, 바로 지워지지 않고, 
+	//   1 프레임을 추가로 dead 상태로 존재하게 된다.
 	for (size_t i = 0; i < m_vecDead.size(); ++i)
 	{
 		delete m_vecDead[i];
