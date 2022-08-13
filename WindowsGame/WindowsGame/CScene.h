@@ -15,7 +15,7 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 
-	// Update/Render는 모든 Scene이 같아서, 그냥 부모에서 정의함
+	// 모든 Scene이 Update/Render가 동일하므로 모두 부모(Scene)에서 정의함
 	void Update();
 	void FinalUpdate();
 	void Render(HDC _dc);

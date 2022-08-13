@@ -4,17 +4,17 @@
 #include "CSceneMgr.h"
 #include "CScene.h"
 #include "CObject.h"
+#include "CCollider.h"
 
 
 CCollisionMgr::CCollisionMgr()
-	: m_arrCheck{}
+	: m_mapColInfo{}
+	, m_arrCheck{}
 {
-
 }
 
 CCollisionMgr::~CCollisionMgr()
 {
-
 }
 
 //void CCollisionMgr::Init()
@@ -45,6 +45,9 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 	const vector<CObject*>& vecLeft = pCurScene->GetGroupObject(_eLeft);
 	const vector<CObject*>& vecRight = pCurScene->GetGroupObject(_eRight);
 
+	// 반복문에서 자주 접근하므로, 미리 선언해서 사용
+	map<ULONGLONG, bool>::iterator iter;
+
 	for (size_t i = 0; i < vecLeft.size(); ++i)
 	{
 		// Collider 컴포넌트가 없다면 빠르게 Pass
@@ -61,14 +64,64 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 			if (vecLeft[i] == vecRight[j])
 				continue;
 
-			// <충돌 처리>
-			if (IsCollision(vecLeft[i]->GetCollider(), vecRight[j]->GetCollider()))
-			{
+			// 자주 접근하므로, 미리 선언해서 사용
+			CCollider* pLeftCol = vecLeft[i]->GetCollider();
+			CCollider* pRightCol = vecRight[i]->GetCollider();
 
+			// 두 충돌체 고유의 조합 ID 값 생성 (두 충돌체를 통해서만 나올 수 있는 고유 값)
+			COLLIDER_ID ID;
+			ID.iLeft = pLeftCol->GetID();
+			ID.iRight = pRightCol->GetID();
+			
+			// 전 프레임 충돌했는지 여부(정보)를 find()로 검색
+			iter = m_mapColInfo.find(ID.ID);
+
+			// 아예 map에 등록도 안됐었던 충돌정보는 false로 값 새로 insert
+			if (m_mapColInfo.end() == iter)
+			{
+				m_mapColInfo.insert(make_pair(ID.ID, false));
+				iter = m_mapColInfo.find(ID.ID); // iter를 받기 위해, 넣은 뒤 바로 find()
+			}
+
+			// [충돌 처리]
+			// 현재 충돌 중
+			if (IsCollision(pLeftCol, pRightCol))
+			{
+				// 이전 프레임도 충돌
+				if (iter->second) // true 상태
+				{
+					// vecLeft[i]가 누구와 충돌중인지 (vecRight[i]) 인자로 넣어준다.
+					pLeftCol->OnCollision(pRightCol);
+					pRightCol->OnCollision(pLeftCol);
+				}
+				// 이전 프레임은 충돌 안 함 (*즉, 충돌 시작 시점)
+				else
+				{
+					pLeftCol->OnCollisionEnter(pRightCol);
+					pRightCol->OnCollisionEnter(pLeftCol);
+
+					// "다음" 프레임을 위해 "이전" 프레임을 true로 세팅
+					iter->second = true;
+				}
 			}
 			else
 			{
+				// 이전 프레임에선 충돌 (*즉, 충돌 종료 시점)
+				if (iter->second) // true 상태
+				{
+					// vecLeft[i]가 누구와 충돌중인지 (vecRight[i]) 인자로 넣어준다.
+					pLeftCol->OnCollisionExit(pRightCol);
+					pRightCol->OnCollisionExit(pLeftCol);
 
+					// "다음" 프레임을 위해 "이전" 프레임을 false로 세팅
+					iter->second = false;
+				}
+				// 이전 프레임도 충돌 안 함
+				else
+				{
+					// 아무것도 안 함
+					// ...	
+				}
 			}
 		}
 	}
