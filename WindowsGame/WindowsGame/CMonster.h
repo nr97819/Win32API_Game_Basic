@@ -11,6 +11,10 @@ private:
     int             m_iDir; // 진행방향 (1: 우측, -1: 좌측)
 
 public:
+    CMonster();
+    ~CMonster();
+
+public:
     virtual void Update() override;
 
 public:
@@ -20,7 +24,7 @@ public:
     void SetCenterPos(Vec2 _vPos) { m_vCenterPos = _vPos; }
 
 public:
-    CMonster();
-    ~CMonster();
+    virtual void OnCollisionEnter(CCollider* _pOther) override;
+
 };
 

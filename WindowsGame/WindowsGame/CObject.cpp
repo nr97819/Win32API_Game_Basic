@@ -4,7 +4,8 @@
 #include "CCollider.h"
 
 CObject::CObject()
-	: m_vPos{}
+	: m_strName{}
+	, m_vPos{}
 	, m_vScale{}
 	, m_pCollider(nullptr)
 {
