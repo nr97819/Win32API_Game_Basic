@@ -12,7 +12,9 @@ private:
 	Vec2			m_vPos;
 	Vec2			m_vScale;
 
-	CCollider* m_pCollider;
+	CCollider*		m_pCollider;
+
+	bool			m_bAlive;
 
 public:
 	void SetPos(Vec2 _vPos) { m_vPos = _vPos; };
@@ -25,11 +27,17 @@ public:
 
 	CCollider* GetCollider() { return m_pCollider; }
 
+	bool IsDead() { return !m_bAlive; }
+
 	void CreateCollider();
 
 	virtual void OnCollision(CCollider* _pOther) {}
 	virtual void OnCollisionEnter(CCollider* _pOther) {}
 	virtual void OnCollisionExit(CCollider* _pOther) {}
+
+private:
+	// 함부로 Object를 죽이지 못하도록 private 설정
+	void SetDead() { m_bAlive = false; }
 
 public:
 	virtual void Update() = 0;
@@ -42,5 +50,8 @@ public:
 public:
 	CObject();
 	virtual ~CObject();
+
+	// Object 삭제를 위해 EventMgr에서는 접근 허용
+	friend class CEventMgr;
 };
 

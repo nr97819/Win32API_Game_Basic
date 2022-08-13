@@ -8,6 +8,7 @@
 #include "CSceneMgr.h"
 #include "CPathMgr.h"
 #include "CCollisionMgr.h"
+#include "CEventMgr.h"
 
 CCore::CCore()
 	: m_hWnd(0)
@@ -76,6 +77,10 @@ void CCore::Progress()
 	CTimeMgr::GetInst()->Update();
 	CKeyMgr::GetInst()->Update();
 
+
+	/****************************/
+	/*		 Object Update		*/
+	/****************************/
 	CSceneMgr::GetInst()->Update(); // 모든 Scene과 그 아래 Object들 업데이트
 	CCollisionMgr::GetInst()->Update(); // 업데이트 후 변동 된 정보에서, 새로운 충돌 있는지 검증
 
@@ -96,6 +101,14 @@ void CCore::Progress()
 
 	// 창 상단에, 시간 정보 출력
 	CTimeMgr::GetInst()->Render();
+
+
+	/****************************/
+	/*		 Event Excute		*/
+	/****************************/
+	// 모든 작업이 끝난 뒤, Event Manager 업데이트
+	CEventMgr::GetInst()->Update(); // (이벤트 지연 처리)
+
 }
 
 void CCore::CreateBrushPen()

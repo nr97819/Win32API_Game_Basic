@@ -30,8 +30,10 @@ enum class GROUP_TYPE
 	DEFAULT, // 0 부터 시작
 
 	PLAYER,
-	MISSIILE,
 	MONSTER,
+
+	PROJ_PLAYER,
+	PROJ_MONSTER,
 
 	END = 32 // 최대 32개 그룹 고정
 };

@@ -101,7 +101,7 @@ void CPlayer::CreateMissile()
 	pMissile->SetPos(vMissilePos);
 	pMissile->SetScale(Vec2(25.f, 25.f));
 	pMissile->SetDir(Vec2(0.f, -1.f)); // 위 방향으로 발사
-	
-	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	pCurScene->AddObject(pMissile, GROUP_TYPE::DEFAULT);
+	// 위 내용은, 나중에 이벤트 관련 수정하면 된다. (지금은 일단 패스)
+
+	CreateObject(pMissile, GROUP_TYPE::PROJ_PLAYER);
 }
