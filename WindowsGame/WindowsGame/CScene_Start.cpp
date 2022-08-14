@@ -40,6 +40,7 @@ void CScene_Start::Enter()
 	for (UINT i = 0; i < iMonCount; ++i)
 	{
 		pMonsterObj = new CMonster();
+		pMonsterObj->SetName(L"Monster");
 		pMonsterObj->SetPos(Vec2(fMoveDist + (fObjScale / 2) + (i * fTerm), 50.f));
 		pMonsterObj->SetScale(Vec2(fObjScale, fObjScale));
 		pMonsterObj->SetCenterPos(pMonsterObj->GetPos());
@@ -49,7 +50,8 @@ void CScene_Start::Enter()
 
 	// 충돌 지정
 	// 어떤 Player 그룹과 어떤 Monster 그룹 간의 충돌 체크할지 결정
-	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);		// PLAYER <=> MONSTER
+	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PROJ_PLAYER); // MONSTER <=> PROJ_PLAYER
 
 	// 32개 종류의 그룹이 존재하므로 32 * 32 이다.
 	// 각 그룹의 충돌의 여부를 1과 0으로 표현하므로 (32 * 32 * 1) bits 이다. => 배열로 표현

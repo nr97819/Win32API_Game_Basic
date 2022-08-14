@@ -10,6 +10,10 @@ private:
     Vec2          m_vDir;   // 나아갈 뱡향(물리 벡터)
 
 public:
+    CMissile();
+    ~CMissile();
+
+public:
     void SetDir(float _fTheta) { m_fTheta = _fTheta; }
     void SetDir(Vec2 _vDir) 
     { 
@@ -22,7 +26,7 @@ public:
     virtual void Render(HDC _dc) override;
 
 public:
-    CMissile();
-    ~CMissile();
+    virtual void OnCollisionEnter(CCollider* pOther) override;
+
 };
 

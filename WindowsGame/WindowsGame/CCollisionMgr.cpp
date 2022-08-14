@@ -90,18 +90,50 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				// 이전 프레임도 충돌
 				if (iter->second) // true 상태
 				{
-					// vecLeft[i]가 누구와 충돌중인지 (vecRight[i]) 인자로 넣어준다.
-					pLeftCol->OnCollision(pRightCol);
-					pRightCol->OnCollision(pLeftCol);
+					/********************************/
+					/*		 Dead Object Check		*/
+					/********************************/
+					// 만약 Left와 Right 객체 중 "하나라도 Dead 상태"라면, (삭제될 예정)
+					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
+					{
+						// 충돌 Exit()을 호출한다. (객체 delete로 인해 벗어남)
+						pLeftCol->OnCollisionExit(pRightCol);
+						pRightCol->OnCollisionExit(pLeftCol);
+
+						iter->second = false; // 충돌 상태 해제
+					}
+					// 정상 충돌 이벤트
+					else
+					{
+						// vecLeft[i]가 누구와 충돌중인지 (vecRight[i]) 인자로 넣어준다.
+						pLeftCol->OnCollision(pRightCol);
+						pRightCol->OnCollision(pLeftCol);
+					}
 				}
 				// 이전 프레임은 충돌 안 함 (*즉, 충돌 시작 시점)
 				else
 				{
-					pLeftCol->OnCollisionEnter(pRightCol);
-					pRightCol->OnCollisionEnter(pLeftCol);
+					/********************************/
+					/*		 Dead Object Check		*/
+					/********************************/
+					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
+					{
+						// 아무것도 안한다.
+						
+						// Dead 상태인 객체와 충돌할 예정
+						// => 어차피 삭제 예정인 객체이므로, 
+						// => Enter()함수 호출은 물론 아예 충돌 사실을 없던걸로 취급
 
-					// "다음" 프레임을 위해 "이전" 프레임을 true로 세팅
-					iter->second = true;
+					}
+					// 정상 충돌 이벤트
+					else
+					{
+						pLeftCol->OnCollisionEnter(pRightCol);
+						pRightCol->OnCollisionEnter(pLeftCol);
+
+						// "다음" 프레임을 위해 "이전" 프레임을 true로 세팅
+						iter->second = true; // (새롭게 충돌 상태가 바뀌는 시점이므로)
+					}
 				}
 			}
 			else

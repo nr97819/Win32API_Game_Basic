@@ -32,6 +32,7 @@ void CEventMgr::Update()
 		m_vecDead[i] = nullptr;
 	}
 	m_vecDead.clear();
+	// 이벤트 버퍼 비우기
 
 	/************************************************
 	*		이번 프레임에 쌓인 모든 이벤트 처리		*
@@ -41,7 +42,6 @@ void CEventMgr::Update()
 		Execute(m_vecEvent[i]);
 	}
 
-	// 이벤트 버퍼 비우기
 	m_vecEvent.clear();
 }
 

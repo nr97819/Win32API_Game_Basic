@@ -3,6 +3,7 @@
 
 #include "CCollider.h"
 
+
 CObject::CObject()
 	: m_strName{}
 	, m_vPos{}

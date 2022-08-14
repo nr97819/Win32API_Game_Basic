@@ -2,6 +2,8 @@
 #include "CMissile.h"
 
 #include "CTimeMgr.h"
+#include "CCollider.h"
+
 
 CMissile::CMissile()
 	: m_fTheta(PI / 4.f)
@@ -13,6 +15,7 @@ CMissile::CMissile()
 	// 정규화 함수 -> 직접 구현
 
 	CreateCollider();
+	GetCollider()->SetScale(Vec2(15.f, 15.f)); // collider의 범위 조정
 }
 
 CMissile::~CMissile()
@@ -43,4 +46,16 @@ void CMissile::Render(HDC _dc)
 	);
 
 	SetPos(vPos);
+
+	// 컴포넌트 render
+	component_render(_dc);
+}
+
+void CMissile::OnCollisionEnter(CCollider* _pOther)
+{
+	if (_pOther->GetObj()->GetName() == L"Monster")
+	{
+		// Event Manager에 자신을 삭제하도록 요청 (삭제 이벤트 등록)
+		DeleteObject(this);
+	}
 }

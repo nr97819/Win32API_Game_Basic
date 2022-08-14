@@ -40,6 +40,15 @@ void CTimeMgr::Update()
 	// PrevCount를 최신 값으로 갱신
 	m_llPrevCount = m_llCurCount;
 
+
+#ifdef _DEBUG
+	// DeltaTime 값이 1/60 sec 보다 커지지 못하도록 설정
+	// (중단점이 잡힌 동안, 과한 시간이 한번에 흘러가는 것 방지)
+	if (m_dDT > (1. / 60.))
+		m_dDT = (1. / 60.);
+#endif // _DEBUG
+
+
 	++m_iCallCount;
 	// deltaTime을 누적시키면, 현재까지 흐른 총 흐른 시간이 된다.
 	m_dAcc += m_dDT;

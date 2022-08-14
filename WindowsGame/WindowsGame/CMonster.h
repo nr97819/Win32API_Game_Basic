@@ -10,6 +10,8 @@ private:
     float           m_fMaxDistance;
     int             m_iDir; // 진행방향 (1: 우측, -1: 좌측)
 
+    int             m_iHP;
+
 public:
     CMonster();
     ~CMonster();

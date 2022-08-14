@@ -10,6 +10,7 @@ CMonster::CMonster()
 	, m_fSpeed(100.f)
 	, m_fMaxDistance(50.f)
 	, m_iDir(1)
+	, m_iHP(5) // 대충 5대 견디도록
 {
 	CreateCollider();
 	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
@@ -45,5 +46,12 @@ void CMonster::OnCollisionEnter(CCollider* _pOther)
 {
 	CObject* pOtherObj = _pOther->GetObj();
 
-	//if(pOtherObj->GetN)
+	if (pOtherObj->GetName() == L"Missile_Player")
+	{
+		// 몬스터 퇴치 상황 부여
+		m_iHP -= 1;
+
+		if(m_iHP <= 0)
+			DeleteObject(this);
+	}
 }

@@ -98,6 +98,7 @@ void CPlayer::CreateMissile()
 
 	// 미사일 생성 및 초기화
 	CMissile* pMissile = new CMissile();
+	pMissile->SetName(L"Missile_Player"); // 미사일 이름 부여
 	pMissile->SetPos(vMissilePos);
 	pMissile->SetScale(Vec2(25.f, 25.f));
 	pMissile->SetDir(Vec2(0.f, -1.f)); // 위 방향으로 발사
