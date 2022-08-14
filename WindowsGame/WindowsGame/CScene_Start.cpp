@@ -9,6 +9,9 @@
 #include "CCore.h"
 #include "CCollisionMgr.h"
 
+#include "CKeyMgr.h"
+#include "CSceneMgr.h"
+
 
 CScene_Start::CScene_Start()
 {
@@ -16,6 +19,19 @@ CScene_Start::CScene_Start()
 
 CScene_Start::~CScene_Start()
 {
+}
+
+void CScene_Start::Update()
+{
+	// 부모 클래스 (CScene) 쪽의 멤버함수를 호출
+	CScene::Update(); // 유용한 기술
+
+	// Enter 키가 눌리면, Tool 씬으로 전환 (이동)
+	if (KEY_TAP(KEY::ENTER))
+	{
+		// Event에 이벤트를 등록하는 "전역 함수"를 호출
+		ChangeScene(SCENE_TYPE::TOOL);
+	}
 }
 
 void CScene_Start::Enter()
@@ -63,4 +79,6 @@ void CScene_Start::Exit()
 	// 설정했던 모든 CheckGroup 해제
 	CCollisionMgr::GetInst()->Reset();
 
+	// 존재하는 모든 Object 제거
+	DeleteAll();
 }

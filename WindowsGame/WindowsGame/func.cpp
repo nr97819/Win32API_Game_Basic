@@ -24,3 +24,12 @@ void DeleteObject(CObject* _pObj)
 
 	CEventMgr::GetInst()->AddEvent(evn);
 }
+
+void ChangeScene(SCENE_TYPE _eNext)
+{
+	tEvent evn = {};
+	evn.eEvent = EVENT_TYPE::SCENE_CHANGE;
+	evn.lParam = (DWORD_PTR)_eNext; // 변경할 Scene의 타입을 lParam으로 전달
+
+	CEventMgr::GetInst()->AddEvent(evn);
+}

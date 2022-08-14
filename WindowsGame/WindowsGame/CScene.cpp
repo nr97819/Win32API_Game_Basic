@@ -3,6 +3,7 @@
 
 #include "CObject.h"
 
+
 CScene::CScene()
 {
 
@@ -20,6 +21,27 @@ CScene::~CScene() // 왜 여기서 일괄 delete하는지 이유 알고 넘어가기 !!
 				m_arrObj[i][j] = nullptr;
 			}
 		}
+	}
+}
+
+void CScene::DeletGroup(GROUP_TYPE _eTarget)
+{
+	// 그룹을 통채로 지우는 작업은 자주 있으므로, 전역 template 함수 만들어두었다.
+
+	Safe_Delete_Vec<CObject*>(m_arrObj[(UINT)_eTarget]);
+
+	// T에 해당하는 <CObject*>는 생략하고 함수처럼 작성해도 되지만,
+	// 이렇게 명시적으로 T 까지 꺽새에 넣어주는 것이 권장된다.
+	// (생략해도 컴파일러가 알아서 잡아준다.) (함수랑은 개념이 다르다는걸 기억하자.) (그냥 생략한 모습이 함수같은 것 뿐)
+}
+
+void CScene::DeleteAll()
+{
+	// 모든 Group, 즉, 모든 Object들이 삭제된다.
+
+	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
+	{
+		DeletGroup((GROUP_TYPE)i);
 	}
 }
 

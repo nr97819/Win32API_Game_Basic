@@ -51,8 +51,8 @@ void CEventMgr::Execute(const tEvent& _eve)
 	{
 	case EVENT_TYPE::CREATE_OBJECT:
 	{
-		// lParam : 추가될 Object Address (CObject*)
-		// wParam : 추가될 Group Type (enum)
+		// lParam : 추가 될 Object Address (CObject*)
+		// wParam : 추가 될 Group Type (enum)
 
 		CObject* pNewObj = (CObject*)_eve.lParam;
 		GROUP_TYPE eType = (GROUP_TYPE)_eve.wParam;
@@ -63,7 +63,7 @@ void CEventMgr::Execute(const tEvent& _eve)
 	
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
-		// lParam : 삭제될 Object Address (CObject*)
+		// lParam : 삭제 될 Object Address (CObject*)
 		// wParam : 미사용
 
 		CObject* pDeadObj = (CObject*)_eve.lParam;
@@ -74,7 +74,11 @@ void CEventMgr::Execute(const tEvent& _eve)
 	
 	case EVENT_TYPE::SCENE_CHANGE:
 	{
+		// lParam : 이동 할 대상 Scene Type (SCENE_TYPE)
+		// wParam : 미사용
 
+		SCENE_TYPE eType = (SCENE_TYPE)_eve.lParam;
+		CSceneMgr::GetInst()->ChangeScene(eType);
 	}
 	break;
 

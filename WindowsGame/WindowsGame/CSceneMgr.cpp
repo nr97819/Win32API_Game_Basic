@@ -2,6 +2,10 @@
 #include "CSceneMgr.h"
 
 #include "CScene_Start.h"
+#include "CScene_Tool.h"
+
+#include "CEventMgr.h"
+
 
 CSceneMgr::CSceneMgr()
 	: m_arrScene{}
@@ -29,7 +33,10 @@ void CSceneMgr::Init()
 	m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Start();
 	m_arrScene[(UINT)SCENE_TYPE::START]->SetName(L"Start Scene");
 
-	//m_arrScene[(UINT)SCENE_TYPE::TOOL] = new CScene_Tool();
+	m_arrScene[(UINT)SCENE_TYPE::TOOL] = new CScene_Tool();
+	m_arrScene[(UINT)SCENE_TYPE::TOOL]->SetName(L"Tool Scene");
+
+
 	//m_arrScene[(UINT)SCENE_TYPE::STAGE_01] = new CScene_Stage_01();
 	//m_arrScene[(UINT)SCENE_TYPE::STAGE_02] = new CScene_Stage_02();
 
@@ -51,4 +58,15 @@ void CSceneMgr::Render(HDC _dc)
 {
 	// 현재 Scene을 Render
 	m_pCurScene->Render(_dc); // memDC를 받아서 전달
+}
+
+void CSceneMgr::ChangeScene(SCENE_TYPE _eNext)
+{
+	// 이전 Scene 탈출
+	m_pCurScene->Exit();
+
+	m_pCurScene = m_arrScene[(UINT)_eNext];
+
+	// 새 Scene 진입
+	m_pCurScene->Enter();
 }

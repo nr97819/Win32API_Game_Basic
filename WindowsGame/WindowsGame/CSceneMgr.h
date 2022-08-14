@@ -1,6 +1,8 @@
 #pragma once
 
+
 class CScene;
+class CEventMgr;
 
 class CSceneMgr
 {
@@ -17,5 +19,12 @@ public:
 
 public:
 	CScene* GetCurScene() { return m_pCurScene; }
+
+	// 아무때나 호출이 가능한 것이 아니라,
+	// Event 매니저를 통해서만 호출해야 되어져야 하므로 - private 설정 (friend class도 설정 확인)
+private:
+	void ChangeScene(SCENE_TYPE _eNext);
+
+	friend class CEventMgr;
 };
 
