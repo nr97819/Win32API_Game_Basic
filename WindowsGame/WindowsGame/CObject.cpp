@@ -13,6 +13,18 @@ CObject::CObject()
 {
 }
 
+CObject::CObject(const CObject& _origin)
+	: m_strName(_origin.m_strName)
+	, m_vPos(_origin.m_vPos)
+	, m_vScale(_origin.m_vScale)
+	, m_pCollider(nullptr) // 본문에서 새로 할당 (복사생성자 별도 정의 한 이유 중 하나)
+	, m_bAlive(true) // 처음엔 무조건 true (새로 만들어졌으므로)
+{
+	// Collider에서 겹치지 않는 복사생성자를 구현했던 것을 이용
+	m_pCollider = new CCollider(*_origin.m_pCollider);
+	m_pCollider->m_pOwner = this; // 연결
+}
+
 CObject::~CObject()
 {
 	if (nullptr != m_pCollider)

@@ -44,6 +44,13 @@ void CScene_Start::Enter()
 	AddObject(pObj, GROUP_TYPE::PLAYER);
 
 
+	// Clone 된 새로운 Player
+	CObject* pOtherPlayer = pObj->Clone();
+	pOtherPlayer->SetPos(Vec2(350.f, 350.f));
+	AddObject(pOtherPlayer, GROUP_TYPE::PLAYER);
+
+
+
 	// Monster 추가
 	UINT iMonCount = 5;
 	float fMoveDist = 0.f;

@@ -47,8 +47,11 @@ public:
 	// 컴포넌트 따로 render
 	void component_render(HDC _dc);
 
+	virtual CObject* Clone() = 0;
+
 public:
 	CObject();
+	CObject(const CObject& _origin);
 	virtual ~CObject();
 
 	// Object 삭제를 위해 EventMgr에서는 접근 허용

@@ -9,9 +9,6 @@ private:
 
     Vec2          m_vDir;   // 나아갈 뱡향(물리 벡터)
 
-public:
-    CMissile();
-    ~CMissile();
 
 public:
     void SetDir(float _fTheta) { m_fTheta = _fTheta; }
@@ -27,6 +24,13 @@ public:
 
 public:
     virtual void OnCollisionEnter(CCollider* pOther) override;
+
+    // 나 자신을 Clone 해서 반환해주는 함수
+    CLONE(CMissile);
+
+public:
+    CMissile();
+    ~CMissile();
 
 };
 

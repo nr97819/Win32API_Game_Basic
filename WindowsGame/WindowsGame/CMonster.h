@@ -19,6 +19,9 @@ public:
 public:
     virtual void Update() override;
 
+    // 나 자신을 Clone 해서 반환해주는 함수
+    CLONE(CMonster);
+
 public:
     float GetSpeed() { return m_fSpeed; }
     void SetSpeed(float _f) { m_fSpeed = _f; }

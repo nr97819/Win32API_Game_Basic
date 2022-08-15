@@ -11,7 +11,6 @@ CSceneMgr::CSceneMgr()
 	: m_arrScene{}
 	, m_pCurScene(nullptr)
 {
-
 }
 
 CSceneMgr::~CSceneMgr()
