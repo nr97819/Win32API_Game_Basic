@@ -22,3 +22,21 @@ void Safe_Delete_Vec(vector<T>& _vec) // 원본 vec를 받아서 비워야하므로, 참조(&)
 	_vec.clear();
 }
 
+// vector와 같지만, Type이 2개가 들어오는 것 주의
+template<typename T1, typename T2>
+void Safe_Delete_Map(map<T1, T2>& _map)
+{
+	// template 내에서 inner 클래스를 이용하려면 (ex. map::iteraotr)
+	// -> typename을 반드시 적어줘야 한다. (2015년 쯤부터 변경됐다.)
+	typename map<T1, T2>::iterator iter = _map.begin();
+
+	for (; iter != _map.end(); ++iter)
+	{
+		if (nullptr != iter->second)
+		{
+			delete iter->second; // 사실상 second 원소만 안전하게 delete 완료됐으면 막 지워도 되므로,
+		}
+	}
+
+	_map.clear();
+}

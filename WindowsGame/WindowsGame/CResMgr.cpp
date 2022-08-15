@@ -13,12 +13,7 @@ CResMgr::CResMgr()
 CResMgr::~CResMgr()
 {
 	// map에 들어있는 모든 Texture 포인터 메모리 해제
-	map<wstring, CTexture*>::iterator iter = m_mapTex.begin();
-	for (; iter != m_mapTex.end(); ++iter)
-	{
-		delete iter->second;
-		iter->second = nullptr;
-	}
+	Safe_Delete_Map(m_mapTex);
 }
 
 CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelativePath)

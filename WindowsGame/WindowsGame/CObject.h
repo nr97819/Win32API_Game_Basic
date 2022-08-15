@@ -2,6 +2,7 @@
 
 
 class CCollider;
+class CAnimator;
 
 // 모든 Object들의 부모 역할 (사용될 목적 X)
 class CObject
@@ -12,7 +13,9 @@ private:
 	Vec2			m_vPos;
 	Vec2			m_vScale;
 
+	// Component
 	CCollider*		m_pCollider;
+	CAnimator*		m_pAnimator;
 
 	bool			m_bAlive;
 
