@@ -2,6 +2,7 @@
 #include "CObject.h"
 
 #include "CCollider.h"
+#include "CAnimator.h"
 
 
 CObject::CObject()

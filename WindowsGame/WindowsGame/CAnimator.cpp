@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CAnimator.h"
 
+#include "CAnimation.h"
+
 
 CAnimator::CAnimator()
 	: m_pOwner(nullptr)

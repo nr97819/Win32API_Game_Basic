@@ -19,7 +19,7 @@ public:
 
     HDC GetDC() { return m_dc; }
 
-private:
+public:
     CTexture();
     ~CTexture();
 
