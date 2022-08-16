@@ -9,19 +9,32 @@
 #include "CMissile.h"
 #include "CScene.h"
 
-#include "CTexture.h"
 #include "CCollider.h"
+#include "CAnimator.h"
+
+#include "CTexture.h"
 
 
 CPlayer::CPlayer()
-	: m_pTex(nullptr)
+	//: m_pTex(nullptr)
 {
 	// Texture 로드
-	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
+	//m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\panda.bmp");
 
-	CreateCollider(); // Collider 컴포넌트 생성
+	// Collider 컴포넌트 생성
+	CreateCollider();
 	GetCollider()->SetOffsetPos(Vec2(0.f, 5.f));
 	GetCollider()->SetScale(Vec2(40.f, 40.f)); // Collider의 크기도 지정해준다.
+
+	// Animator 컴포넌트 생성
+	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\character_link.bmp"); // Texture 로드
+	CreateAnimator();
+	GetAnimator()->CreateAnimation(L"WALK_DOWN", pTex
+									, Vec2(0.f, 280.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.05f, 10);
+
+	// 해당 Key를 가진 animation을 map에서 find()한 뒤, Play 한다.
+	// component_render() 호출될 때, m_pCurAnim->Render(_dc);가 호출되면서 출력 된다.
+	GetAnimator()->Play(L"WALK_DOWN", true);
 }
 
 CPlayer::~CPlayer()
@@ -57,14 +70,17 @@ void CPlayer::Update()
 	{
 		CreateMissile();
 	}
+
+	// Test
+	GetAnimator()->Update();
 }
 
 void CPlayer::Render(HDC _dc)
 {
-	int iWidth = (int)m_pTex->Width();
+	/*int iWidth = (int)m_pTex->Width();
 	int iHeight = (int)m_pTex->Height();
 
-	Vec2 vPos = GetPos();
+	Vec2 vPos = GetPos();*/
 
 	/*BitBlt(_dc
 		, int(vPos.x - (float)(iWidth / 2.f))
@@ -76,7 +92,7 @@ void CPlayer::Render(HDC _dc)
 
 	// 마젠타(RGB(255, 0, 255)) 색상 Transparent 처리 + BitBlt 하는 함수
 	// (라이브러리 참조를 해줘야 사용 가능한 함수)
-	TransparentBlt(_dc
+	/*TransparentBlt(_dc
 		, int(vPos.x - (float)(iWidth / 2.f))
 		, int(vPos.y - (float)(iHeight / 2.f))
 		, iWidth
@@ -85,7 +101,9 @@ void CPlayer::Render(HDC _dc)
 		, 0, 0
 		, iWidth
 		, iHeight
-		, RGB(255, 0, 255));
+		, RGB(255, 0, 255));*/
+
+
 
 	// Component 렌더링 -> Render()를 오버라이딩 해서, component_render()도 따로 써줘야 함
 	component_render(_dc);

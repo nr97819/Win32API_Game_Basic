@@ -24,17 +24,17 @@ CObject::CObject(const CObject& _origin)
 	, m_bAlive(true) // 처음엔 무조건 true (새로 만들어졌으므로)
 {
 	// Collider에서 겹치지 않는 복사생성자를 구현했던 것을 이용
-	if (nullptr != _origin.m_pCollider) // 원본이 Collider를 소유하고 있는 경우에만, 복사 가능하므로 예외처리
+	if (nullptr != _origin.m_pCollider) // 원본이 Collider를 가지고 있을 경우 새로 제공
 	{
 		m_pCollider = new CCollider(*_origin.m_pCollider);
 		m_pCollider->m_pOwner = this; // 연결
 	}
 
-	//if (nullptr != _origin.m_pCollider)
-	//{
-	//	m_pCollider = new CCollider(*_origin.m_pCollider);
-	//	m_pCollider->m_pOwner = this; // 연결
-	//}
+	if (nullptr != _origin.m_pAnimator) // 원본이 Animator를 가지고 있을 경우 새로 제공
+	{
+		m_pAnimator = new CAnimator(*_origin.m_pAnimator);
+		m_pAnimator->m_pOwner = this; // 연결
+	}
 }
 
 CObject::~CObject()
@@ -78,10 +78,23 @@ void CObject::CreateCollider()
 	m_pCollider->m_pOwner = this;
 }
 
+void CObject::CreateAnimator()
+{
+	m_pAnimator = new CAnimator();
+	m_pAnimator->m_pOwner = this;
+}
+
 void CObject::component_render(HDC _dc)
 {
+	// Collider 렌더링
 	if (nullptr != m_pCollider)
 	{
 		m_pCollider->Render(_dc);
+	}
+
+	// Animator 렌더링
+	if (nullptr != m_pAnimator)
+	{
+		m_pAnimator->Render(_dc);
 	}
 }

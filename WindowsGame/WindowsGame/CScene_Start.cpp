@@ -45,9 +45,9 @@ void CScene_Start::Enter()
 
 
 	// Clone 된 새로운 Player
-	CObject* pOtherPlayer = pObj->Clone();
+	/*CObject* pOtherPlayer = pObj->Clone();
 	pOtherPlayer->SetPos(Vec2(350.f, 350.f));
-	AddObject(pOtherPlayer, GROUP_TYPE::PLAYER);
+	AddObject(pOtherPlayer, GROUP_TYPE::PLAYER);*/
 
 
 

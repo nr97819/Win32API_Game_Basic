@@ -8,7 +8,9 @@ class CPlayer :
     public CObject
 {
 private:
-    CTexture*       m_pTex;
+    // CTexture*       m_pTex; 
+    // -> animation이 이미 해당 texture 정보를 알고있고
+    // -> 이미 등록되어있는 animation을 키 값을 통해 불러와서 쓸 것이므로
 
 public:
     virtual void Update() override;

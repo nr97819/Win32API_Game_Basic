@@ -2,13 +2,14 @@
 
 
 class CTexture;
+class CRes;
 
 class CResMgr
 {
 	SINGLE(CResMgr)
 private:
 	// map : 이진 탐색 트리 구조 + 자가 균형 (밸런스 자동 조정) 기능까지 있는 자료구조
-	map<wstring, CTexture*> m_mapTex;
+	map<wstring, CRes*> m_mapTex; // (CTexture*)가 아닌, (CRes*)로 저장하도록 수정
 
 
 public:

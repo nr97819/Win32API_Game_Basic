@@ -13,7 +13,7 @@ CResMgr::CResMgr()
 CResMgr::~CResMgr()
 {
 	// map에 들어있는 모든 Texture 포인터 메모리 해제
-	Safe_Delete_Map(m_mapTex);
+	Safe_Delete_Map<wstring, CRes*>(m_mapTex); // (CTexture*)가 아닌, (CRes*)로 저장하도록 수정
 }
 
 CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelativePath)
@@ -40,9 +40,9 @@ CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelati
 	return pTex;
 }
 
-CTexture* CResMgr::FindTexture(const wstring& _strKey)
+CTexture* CResMgr::FindTexture(const wstring& _strKey) // (CTexture*)가 아닌, (CRes*)로 저장하도록 수정
 {
-	map<wstring, CTexture*>::iterator iter = m_mapTex.find(_strKey);
+	map<wstring, CRes*>::iterator iter = m_mapTex.find(_strKey);  // (CTexture*)가 아닌, (CRes*)로 저장하도록 수정
 	
 	// 해당 값을 찾지 못한 경우 (존재하지 않는 경우)
 	if (iter == m_mapTex.end())
@@ -51,5 +51,5 @@ CTexture* CResMgr::FindTexture(const wstring& _strKey)
 	}
 	
 	// 찾았다면, 해당 Texture를 반환 (second 원소 : Texture)
-	return iter->second;
+	return (CTexture*)iter->second;
 }

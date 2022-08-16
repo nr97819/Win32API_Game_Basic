@@ -28,11 +28,15 @@ public:
 	Vec2 GetScale() { return m_vScale; };
 	const wstring& GetName() { return m_strName; }
 
+	// Get Component
 	CCollider* GetCollider() { return m_pCollider; }
+	CAnimator* GetAnimator() { return m_pAnimator; }
 
 	bool IsDead() { return !m_bAlive; }
 
+	// Create Component
 	void CreateCollider();
+	void CreateAnimator();
 
 	virtual void OnCollision(CCollider* _pOther) {}
 	virtual void OnCollisionEnter(CCollider* _pOther) {}
