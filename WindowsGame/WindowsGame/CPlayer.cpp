@@ -13,6 +13,7 @@
 #include "CAnimator.h"
 
 #include "CTexture.h"
+#include "CAnimation.h"
 
 
 CPlayer::CPlayer()
@@ -35,6 +36,12 @@ CPlayer::CPlayer()
 	// 해당 Key를 가진 animation을 map에서 find()한 뒤, Play 한다.
 	// component_render() 호출될 때, m_pCurAnim->Render(_dc);가 호출되면서 출력 된다.
 	GetAnimator()->Play(L"WALK_DOWN", true);
+
+	CAnimation* pAnim = GetAnimator()->FindAnimation(L"WALK_DOWN");
+	for (UINT i = 0; i < pAnim->GetMaxFrame(); ++i)
+	{
+		pAnim->GetFrame(i).vOffset = Vec2(0.f, -20.f); // y축 20만큼 이동하도록 offset 값 조정
+	}
 }
 
 CPlayer::~CPlayer()

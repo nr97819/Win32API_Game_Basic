@@ -38,6 +38,7 @@ void CAnimation::Update()
 		{
 			m_iCurFrm = -1;		// 에러 유발
 			m_bFinish = true;	// finish 상태로 ON
+			m_fAccTime = 0.f;
 
 			return; // vector의 마지막 index + 1 접근 에러 방지용
 		}
@@ -61,6 +62,9 @@ void CAnimation::Render(HDC _dc)
 
 	// 현재 frame의 info (구조체)
 	tAnimFrm curFrmInfo = m_vecFrm[m_iCurFrm];
+
+	// offset 만큼 추가 위치 이동
+	vPos += curFrmInfo.vOffset;
 
 	TransparentBlt(_dc
 		, int(vPos.x - (float)(curFrmInfo.vSlice.x / 2.f))

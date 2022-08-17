@@ -8,6 +8,7 @@ struct tAnimFrm
 {
 	Vec2 vLT;			// 자를 LeftTop 위치
 	Vec2 vSlice;		// 자를 크기
+	Vec2 vOffset;
 	float fDuration;	// 지속 시간
 };
 
@@ -29,7 +30,9 @@ public:
 
 public:
 	const wstring& GetName() { return m_strName; }
-	
+	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; } // (수정을 위해) 특정 idx의 tAnimFrm 정보를 얻어온다.
+	int GetMaxFrame() { return int(m_vecFrm.size()); }
+
 	bool IsFinish() { return m_bFinish; }
 	void SetFrame(int _iFrameIdx) 
 	{ 
