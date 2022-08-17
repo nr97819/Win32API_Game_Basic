@@ -111,7 +111,6 @@ void CPlayer::Render(HDC _dc)
 		, RGB(255, 0, 255));*/
 
 
-
 	// Component 렌더링 -> Render()를 오버라이딩 해서, component_render()도 따로 써줘야 함
 	component_render(_dc);
 }

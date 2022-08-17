@@ -33,10 +33,20 @@ void CScene_Start::Update()
 		// Event에 이벤트를 등록하는 "전역 함수"를 호출
 		ChangeScene(SCENE_TYPE::TOOL);
 	}
+
+	// 마우스 클릭 시, 해당 위치로 Player 이동 (smooth 무브 적용 테스트)
+	if (KEY_TAP(KEY::LBTN))
+	{
+		Vec2 vLookAt = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+		
+		CCamera::GetInst()->SetLookAt(vLookAt);
+	}
 }
 
 void CScene_Start::Enter()
 {
+	Vec2 vResolution = CCore::GetInst()->GetResolution();
+
 	// Player 추가
 	CObject* pObj;
 	pObj = new CPlayer();
@@ -49,12 +59,22 @@ void CScene_Start::Enter()
 	pOtherPlayer->SetPos(Vec2(350.f, 350.f));
 	AddObject(pOtherPlayer, GROUP_TYPE::PLAYER);*/
 
+
+	/************************/
+	/*		Camera 설정		*/
+	/************************/
+	// Camera의 초기 LookAt 설정
+	CCamera::GetInst()->SetLookAt(vResolution / 2.f); // 해상도의 정중앙을 default로 바라보게 설정 (기본 설정)
+
+	// Camera의 타겟 Object를 Player로 설정 (따라다니도록 설정)
+	//CCamera::GetInst()->SetTarget(pObj);
+
+
 	// Monster 추가
 	UINT iMonCount = 5;
 	float fMoveDist = 0.f;
 	float fObjScale = 50.f;
 
-	Vec2 vResolution = CCore::GetInst()->GetResolution();
 	float fTerm = (vResolution.x - ((fMoveDist + fObjScale / 2.f) * 2)) / float(iMonCount - 1);
 
 	CMonster* pMonsterObj = nullptr;
@@ -80,12 +100,6 @@ void CScene_Start::Enter()
 	// 각 그룹의 충돌의 여부를 1과 0으로 표현하므로 (32 * 32 * 1) bits 이다. => 배열로 표현
 	// (*) 즉, 4바이트 정수가 32개 있는 것이다. (절반은 사용하지 않는다.)
 
-
-	/************************/
-	/*		Camera 설정		*/
-	/************************/
-	// Camera의 초기 LookAt 설정
-	CCamera::GetInst()->SetLookAt(vResolution / 2.f); // 해상도의 정중앙을 default로 바라보게 설정 (기본 설정)
 }
 
 void CScene_Start::Exit()

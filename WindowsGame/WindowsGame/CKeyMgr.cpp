@@ -9,26 +9,31 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_RIGHT,
 	VK_UP,
 	VK_DOWN,
+
 	'Q', 'W', 'E', 'R', 'T',
 	'Y', 'U', 'I', 'O', 'P',
 	'A', 'S', 'D', 'F', 'G',
 	'Z', 'X', 'C', 'V', 'B',
+
 	VK_MENU,
 	VK_CONTROL,
 	VK_LSHIFT,
 	VK_SPACE,
 	VK_RETURN,
-	VK_ESCAPE
+	VK_ESCAPE,
+
+	VK_LBUTTON,
+	VK_RBUTTON
 };
 
 CKeyMgr::CKeyMgr()
+	: m_vecKey{}
+	, m_vCurMousePos{}
 {
-
 }
 
 CKeyMgr::~CKeyMgr()
 {
-
 }
 
 void CKeyMgr::Init()
@@ -80,6 +85,16 @@ void CKeyMgr::Update()
 				m_vecKey[i].ePrevPush = false;
 			}
 		}
+
+		// Mouse 커서 위치 계산
+		POINT ptPos = {};
+		GetCursorPos(&ptPos);
+
+		// GetCursorPos() 함수는 화면 전체 기준의 cursor 위치를 제공한다.
+		// -> 우리의 wnd 창의 LeftTop을 빼줘야 쓸 수 있다.
+		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos); // window에서 해당 함수도 제공한다.
+		
+		m_vCurMousePos = Vec2((float)ptPos.x, (float)ptPos.y); // POINT를 Vec2로 변환
 	}
 	else
 	{

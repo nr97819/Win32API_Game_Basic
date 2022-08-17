@@ -2,6 +2,7 @@
 #include "CAnimation.h"
 
 #include "CTimeMgr.h"
+#include "CCamera.h"
 
 #include "CAnimator.h"
 #include "CTexture.h"
@@ -66,6 +67,9 @@ void CAnimation::Render(HDC _dc)
 	// offset 만큼 추가 위치 이동
 	vPos += curFrmInfo.vOffset;
 
+	// (*) Camera의 renderPos에 그리도록 수정
+	vPos = CCamera::GetInst()->GetRenderPos(vPos);
+	
 	TransparentBlt(_dc
 		, int(vPos.x - (float)(curFrmInfo.vSlice.x / 2.f))
 		, int(vPos.y - (float)(curFrmInfo.vSlice.y / 2.f))
@@ -90,7 +94,7 @@ void CAnimation::Create(const wstring& _strName, CTexture* _pTex
 	{
 		frm.fDuration = _fDuration;
 		frm.vSlice = _vSliceSize;
-		frm.vLT = _vLT + (_vStep * i);
+		frm.vLT = _vLT + (_vStep * (int)i);
 
 		m_vecFrm.push_back(frm);
 	}

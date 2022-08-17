@@ -59,6 +59,11 @@ public:
 		return Vec2(x * (float)_i, y * (float)_i);
 	}
 
+	Vec2 operator * (float _f)
+	{
+		return Vec2(x * _f, y * _f);
+	}
+
 	Vec2 operator / (Vec2 _vOther)
 	{
 		// Divided by Zero 예외 처리

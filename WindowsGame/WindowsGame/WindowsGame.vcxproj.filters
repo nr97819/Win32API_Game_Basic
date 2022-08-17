@@ -86,6 +86,9 @@
     <Filter Include="Engine\07. Component\Collider">
       <UniqueIdentifier>{2fc306fc-c12e-4c00-aa62-e1e61306bec4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\Camera">
+      <UniqueIdentifier>{3932fcd0-ac5c-4de9-898a-58cb68a59f9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsGame.h">
@@ -176,7 +179,9 @@
     <ClInclude Include="CCollider.h">
       <Filter>Engine\07. Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine\03. Manager\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCore.cpp">
@@ -249,7 +254,9 @@
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\07. Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Engine\03. Manager\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">

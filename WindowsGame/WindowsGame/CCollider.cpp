@@ -6,6 +6,8 @@
 
 #include "SelectGDI.h"
 
+#include "CCamera.h"
+
 
 UINT CCollider::g_iNextID = 0;
 
@@ -56,11 +58,17 @@ void CCollider::Render(HDC _dc)
 	// 객체명 없으면 바로 소멸시켜버리므로, 이름도 줘야 함
 	// HPEN, HBRUSH의 해제 또한 SelectGDI()의 소멸자에서 해주므로 편리하다.
 
+
+	// Camera에 의한 vDiff를 계산한 vRenderPos에 그리도록 적용
+	// (FinalPos는 충돌체의 실제 계산에 쓰는 값이므로, 변경시키면 안된다.)
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(m_vFinalPos);
+
+
 	Rectangle(_dc
-		, int(m_vFinalPos.x - (m_vScale.x / 2.f))
-		, int(m_vFinalPos.y - (m_vScale.y / 2.f))
-		, int(m_vFinalPos.x + (m_vScale.x / 2.f))
-		, int(m_vFinalPos.y + (m_vScale.y / 2.f)));
+		, int(vRenderPos.x - (m_vScale.x / 2.f))
+		, int(vRenderPos.y - (m_vScale.y / 2.f))
+		, int(vRenderPos.x + (m_vScale.x / 2.f))
+		, int(vRenderPos.y + (m_vScale.y / 2.f)));
 }
 
 void CCollider::OnCollision(CCollider* _pOther)
