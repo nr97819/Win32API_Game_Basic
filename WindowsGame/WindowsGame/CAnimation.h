@@ -31,7 +31,7 @@ public:
 public:
 	const wstring& GetName() { return m_strName; }
 	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; } // (수정을 위해) 특정 idx의 tAnimFrm 정보를 얻어온다.
-	int GetMaxFrame() { return int(m_vecFrm.size()); }
+	UINT GetMaxFrame() { return UINT(m_vecFrm.size()); }
 
 	bool IsFinish() { return m_bFinish; }
 	void SetFrame(int _iFrameIdx) 

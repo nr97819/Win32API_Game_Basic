@@ -94,7 +94,7 @@ void CAnimation::Create(const wstring& _strName, CTexture* _pTex
 	{
 		frm.fDuration = _fDuration;
 		frm.vSlice = _vSliceSize;
-		frm.vLT = _vLT + (_vStep * (int)i);
+		frm.vLT = _vLT + (_vStep * (float)i);
 
 		m_vecFrm.push_back(frm);
 	}

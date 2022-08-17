@@ -15,6 +15,9 @@ CCamera::CCamera()
 	, m_vPrevLookAt{}
 	, m_pTargetObj(nullptr)
 	, m_vDiff{}
+	, m_fTime(0.5f)
+	, m_fSpeed(0.f)
+	, m_fAccTime(0.f)
 {
 }
 
@@ -56,10 +59,17 @@ void CCamera::CallDiff()
 {
 	// 이전 LootAt 과 현재 LookAt의 차이값을 보정해서, 현재의 LookAt 값을 구한다. (smooth 카메라 무빙 적용)
 
-	// 두 Vec2의 위치를 뺀 값을 이용, 즉, 방향으로 쓰면 된다. (물리 벡터 방향 값)
-	Vec2 vLookDir = m_vLookAt - m_vPrevLookAt;
-
-	m_vCurLookAt = m_vPrevLookAt + vLookDir.Normalize() * 500.f * fDT;
+	m_fAccTime += fDT;
+	if (m_fTime <= m_fAccTime)
+	{
+		m_vCurLookAt = m_vLookAt;
+	}
+	else
+	{
+		// 두 Vec2의 위치를 뺀 값을 이용, 즉, 방향으로 쓰면 된다. (물리 벡터 방향 값)
+		Vec2 vLookDir = m_vLookAt - m_vPrevLookAt;
+		m_vCurLookAt = m_vPrevLookAt + vLookDir.Normalize() * m_fSpeed * fDT;
+	}
 
 	Vec2 vResolution = CCore::GetInst()->GetResolution();
 	Vec2 vCenter = vResolution / 2.f;
@@ -70,13 +80,5 @@ void CCamera::CallDiff()
 	// 이전 LookAt을, 현재 LookAt으로 새로 초기화
 	m_vPrevLookAt = m_vCurLookAt;
 
-	// 에외 처리
-	/*if (abs(m_vLookAt.x - m_vCurLookAt.x < 1.f) && 
-		abs(m_vLookAt.y - m_vCurLookAt.y < 1.f))
-	{
-		m_vPrevLookAt = m_vLookAt;
-		m_vCurLookAt = m_vLookAt;
 
-		return;
-	}*/
 }
