@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include "CCamera.h" // 카메라는 모든 자식에서 항상 header 추가하는 것보다, 차라리 부모에 header 참조하는게 낫다.
+
 class CCollider;
 class CAnimator;
 

@@ -11,6 +11,7 @@
 
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
+#include "CCamera.h"
 
 
 CScene_Start::CScene_Start()
@@ -43,13 +44,10 @@ void CScene_Start::Enter()
 	pObj->SetScale(Vec2(100.f, 100.f));
 	AddObject(pObj, GROUP_TYPE::PLAYER);
 
-
 	// Clone 된 새로운 Player
 	/*CObject* pOtherPlayer = pObj->Clone();
 	pOtherPlayer->SetPos(Vec2(350.f, 350.f));
 	AddObject(pOtherPlayer, GROUP_TYPE::PLAYER);*/
-
-
 
 	// Monster 추가
 	UINT iMonCount = 5;
@@ -71,14 +69,23 @@ void CScene_Start::Enter()
 		AddObject(pMonsterObj, GROUP_TYPE::MONSTER);
 	}
 
-	// 충돌 지정
+
+	/****************************/
+	/*		Collision 설정		*/
+	/****************************/
 	// 어떤 Player 그룹과 어떤 Monster 그룹 간의 충돌 체크할지 결정
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);		// PLAYER <=> MONSTER
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PROJ_PLAYER); // MONSTER <=> PROJ_PLAYER
-
 	// 32개 종류의 그룹이 존재하므로 32 * 32 이다.
 	// 각 그룹의 충돌의 여부를 1과 0으로 표현하므로 (32 * 32 * 1) bits 이다. => 배열로 표현
 	// (*) 즉, 4바이트 정수가 32개 있는 것이다. (절반은 사용하지 않는다.)
+
+
+	/************************/
+	/*		Camera 설정		*/
+	/************************/
+	// Camera의 초기 LookAt 설정
+	CCamera::GetInst()->SetLookAt(vResolution / 2.f); // 해상도의 정중앙을 default로 바라보게 설정 (기본 설정)
 }
 
 void CScene_Start::Exit()

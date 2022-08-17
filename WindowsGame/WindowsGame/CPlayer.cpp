@@ -38,7 +38,7 @@ CPlayer::CPlayer()
 	GetAnimator()->Play(L"WALK_DOWN", true);
 
 	CAnimation* pAnim = GetAnimator()->FindAnimation(L"WALK_DOWN");
-	for (UINT i = 0; i < pAnim->GetMaxFrame(); ++i)
+	for (int i = 0; i < pAnim->GetMaxFrame(); ++i)
 	{
 		pAnim->GetFrame(i).vOffset = Vec2(0.f, -20.f); // y축 20만큼 이동하도록 offset 값 조정
 	}

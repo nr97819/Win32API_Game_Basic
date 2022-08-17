@@ -176,6 +176,7 @@
     <ClInclude Include="CCollider.h">
       <Filter>Engine\07. Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="CCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCore.cpp">
@@ -248,6 +249,7 @@
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\07. Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="CCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">

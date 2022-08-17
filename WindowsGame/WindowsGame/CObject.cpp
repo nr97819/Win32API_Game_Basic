@@ -60,12 +60,15 @@ void CObject::FinalUpdate()
 
 void CObject::Render(HDC _dc)
 {
-	// 그리기
+	// 실제 위치에 vDiff를 적용한 [vRenderPos]를 CCamera로 부터 얻어 온다.)
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(m_vPos); // m_vPos : 실제 Obj의 위치
+
+	// 그리기 (vRenderPos : vDiff로 계산된 위치)
 	Rectangle(_dc
-		, int(m_vPos.x - m_vScale.x / 2.f)
-		, int(m_vPos.y - m_vScale.y / 2.f)
-		, int(m_vPos.x + m_vScale.x / 2.f)
-		, int(m_vPos.y + m_vScale.y / 2.f)
+		, int(vRenderPos.x - m_vScale.x / 2.f)
+		, int(vRenderPos.y - m_vScale.y / 2.f)
+		, int(vRenderPos.x + m_vScale.x / 2.f)
+		, int(vRenderPos.y + m_vScale.y / 2.f)
 	);
 
 	// Component 렌더링

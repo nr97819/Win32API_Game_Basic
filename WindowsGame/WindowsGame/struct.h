@@ -67,6 +67,14 @@ public:
 		return Vec2(x / _vOther.x, y / _vOther.y);
 	}
 
+	Vec2 operator / (float _f)
+	{
+		// Divided by Zero 예외 처리
+		assert(0.f != _f);
+
+		return Vec2(x / _f, y / _f);
+	}
+
 public:
 	Vec2()
 		: x(0.f)
