@@ -9,6 +9,7 @@
 #include "CTile.h"
 #include "CTexture.h"
 #include "CScene.h"
+#include "CUI.h"
 
 #include "resource.h" // Dialog의 ID 값을 이용하기 위함
 
@@ -25,17 +26,37 @@ CScene_Tool::~CScene_Tool()
 
 void CScene_Tool::Enter()
 {
+	// 해상도
+	Vec2 vResolution = CCore::GetInst()->GetResolution();
+
+	// 텍스처 로드
 	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"Tile", L"texture\\tile\\test.bmp");
 
 	// Tool Scene 진입 시, (N x N) 형태로 타일들 생성
 	// (부모인 Scene에 구현되어 있는 함수)
 	CreateTile(5, 5);
 	
+
+	/********************/
+	/*		UI 생성		*/
+	/********************/
+	CUI* pUI = new CUI();
+	pUI->SetScale(Vec2(500.f, 300.f));
+	pUI->SetPos(Vec2(vResolution.x - pUI->GetScale().x, 0.f));
+
+	CUI* pChildUI = new CUI();
+	pChildUI->SetScale(Vec2(100.f, 40.f));
+	pChildUI->SetPos(Vec2(0.f, 0.f)); // 부모 UI로부터의 상대적인 Pos
+
+	pUI->AddChild(pChildUI);
+
+	AddObject(pUI, GROUP_TYPE::UI);
+
+
 	/************************/
 	/*		Camera 설정		*/
 	/************************/
 	// Camera의 초기 LookAt 설정
-	Vec2 vResolution = CCore::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLookAt(vResolution / 2.f); // 해상도의 정중앙을 default로 바라보게 설정 (기본 설정)
 }
 
@@ -68,13 +89,22 @@ void CScene_Tool::SetTileIdx()
 
 		// MousePos는 카메라 좌표 (renderPos)이므로, 실제 좌표 (realPos)로 변환해줘야 한다.
 		// (실제 Tile의 위치와 비교해야 하므로)
-		Vec2 vRealPos = CCamera::GetInst()->GetRealPos(vMousePos);
+		vMousePos = CCamera::GetInst()->GetRealPos(vMousePos);
 
-		UINT iTileX = GetTileX();
-		UINT iTileY = GetTileY();
+		int iTileX = GetTileX();
+		int iTileY = GetTileY();
 
-		UINT iCol = (UINT)vRealPos.x / TILE_SIZE;
-		UINT iRow = (UINT)vRealPos.y / TILE_SIZE;
+		// 마우스 좌표가 음수가 될 수 있으므로 int로 변경
+		int iCol = (int)vMousePos.x / TILE_SIZE;
+		int iRow = (int)vMousePos.y / TILE_SIZE;
+
+		// [예외 처리]
+		// 왜 [음수] 예외처리만 MousePos로 했는지 고민해보기 (정답 있음)
+		if (vMousePos.x < 0.f || iTileX <= iCol ||
+			vMousePos.y < 0.f || iTileY <= iRow)
+		{
+			return;
+		}
 
 		UINT iIdx = iRow * (iTileX) + iCol;
 
@@ -84,9 +114,7 @@ void CScene_Tool::SetTileIdx()
 		// img index 1 더하기 (Test)
 		((CTile*)vecTile[iIdx])->IncreaseImgIdx();
 	}
-
 }
-
 
 /************************************/
 /*		 Dialog 프로시저 구현부		*/

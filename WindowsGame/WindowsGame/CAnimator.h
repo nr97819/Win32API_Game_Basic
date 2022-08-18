@@ -25,6 +25,7 @@ public:
 
 public:
 	void Update();
+	void FinalUpdate();
 	void Render(HDC _dc);
 
 public:

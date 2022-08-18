@@ -1,7 +1,4 @@
 
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CRes.cpp"
-
-
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CResMgr.cpp"
 
 
@@ -27,6 +24,9 @@
 
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CTimeMgr.cpp"
+
+
+#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CUI.cpp"
 
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\func.cpp"

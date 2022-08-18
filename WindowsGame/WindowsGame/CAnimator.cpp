@@ -20,6 +20,11 @@ CAnimator::~CAnimator()
 
 void CAnimator::Update()
 {
+	
+}
+
+void CAnimator::FinalUpdate()
+{
 	if (nullptr != m_pCurAnim)
 	{
 		m_pCurAnim->Update();

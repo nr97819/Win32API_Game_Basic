@@ -37,3 +37,6 @@
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CPlayer.cpp"
 
+
+#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CRes.cpp"
+

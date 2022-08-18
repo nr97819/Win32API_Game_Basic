@@ -1,5 +1,8 @@
 #pragma once
 
+#include "global.h"
+
+
 class CObject;
 
 // 모든 Scene들의 부모 역할 (사용될 목적 X)

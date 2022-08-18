@@ -11,13 +11,10 @@
 								type();\
 								~type();
 
-
 #define fDT CTimeMgr::GetInst()->GetfDT()
 #define DT CTimeMgr::GetInst()->GetDT()
 
-
 #define CLONE(type) type* Clone() { return new type(*this); }
-
 
 #define KEY_CHECK(key, state) CKeyMgr::GetInst()->GetKeyState(key) == state
 #define KEY_HOLD(key) KEY_CHECK(key, KEY_STATE::HOLD)
@@ -33,9 +30,8 @@
 
 enum class GROUP_TYPE
 {
-	DEFAULT, // 0 부터 시작
-
-	TILE, 
+	DEFAULT = 0,
+	TILE = 1,		// (*) render 시, Tile은 가장 바닥에 그려져야 하므로,
 
 	PLAYER,
 	MONSTER,
@@ -43,12 +39,13 @@ enum class GROUP_TYPE
 	PROJ_PLAYER,
 	PROJ_MONSTER,
 
-	END = 32 // 최대 32개 그룹 고정
+	UI = 31,		// (*) render 시, UI는 가장 위에 그려져야 하므로,
+	END = 32		// 최대 32개 그룹 고정
 };
 
 enum class SCENE_TYPE
 {
-	TOOL, // map_tool 씬
+	TOOL,
 	START,
 	STAGE_01,
 	STAGE_02,
