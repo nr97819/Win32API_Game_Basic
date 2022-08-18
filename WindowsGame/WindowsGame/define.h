@@ -24,15 +24,18 @@
 #define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
 #define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
-
 #define MOUSE_POS CKeyMgr::GetInst()->GetMousePos()
 
 #define PI 3.1415926535f
+
+#define TILE_SIZE 64 // sprite에 따라서 다를 수 있다.
 
 
 enum class GROUP_TYPE
 {
 	DEFAULT, // 0 부터 시작
+
+	TILE, 
 
 	PLAYER,
 	MONSTER,

@@ -17,7 +17,7 @@ CCamera::CCamera()
 	, m_vDiff{}
 	, m_fTime(0.5f)
 	, m_fSpeed(0.f)
-	, m_fAccTime(0.f)
+	, m_fAccTime(0.5f) // Normalize의 0 나누기 asssert에 안걸리기 위한 초기값
 {
 }
 
