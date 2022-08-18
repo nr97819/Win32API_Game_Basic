@@ -1,12 +1,19 @@
 #include "pch.h"
 #include "CScene.h"
 
+#include "CResMgr.h"
+
 #include "CObject.h"
+#include "CTile.h"
+#include "CTexture.h"
 
 
 CScene::CScene()
+	: m_arrObj{}
+	, m_strName{}
+	, m_iTileX(0)
+	, m_iTileY(0)
 {
-
 }
 
 CScene::~CScene() // 왜 여기서 일괄 delete하는지 이유 알고 넘어가기 !!
@@ -21,27 +28,6 @@ CScene::~CScene() // 왜 여기서 일괄 delete하는지 이유 알고 넘어가기 !!
 				m_arrObj[i][j] = nullptr;
 			}
 		}
-	}
-}
-
-void CScene::DeletGroup(GROUP_TYPE _eTarget)
-{
-	// 그룹을 통채로 지우는 작업은 자주 있으므로, 전역 template 함수 만들어두었다.
-
-	Safe_Delete_Vec<CObject*>(m_arrObj[(UINT)_eTarget]);
-
-	// T에 해당하는 <CObject*>는 생략하고 함수처럼 작성해도 되지만,
-	// 이렇게 명시적으로 T 까지 꺽새에 넣어주는 것이 권장된다.
-	// (생략해도 컴파일러가 알아서 잡아준다.) (함수랑은 개념이 다르다는걸 기억하자.) (그냥 생략한 모습이 함수같은 것 뿐)
-}
-
-void CScene::DeleteAll()
-{
-	// 모든 Group, 즉, 모든 Object들이 삭제된다.
-
-	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
-	{
-		DeletGroup((GROUP_TYPE)i);
 	}
 }
 
@@ -95,16 +81,60 @@ void CScene::Render(HDC _dc)
 			if (!(*iter)->IsDead())
 			{
 				(*iter)->Render(_dc);
-				
+
 				// erase()한 경우 ++iter을 하면 iter 값이 2번 건너뛰게 되므로, 여기서만 ++iter
 				// (erase하면 다음 원소를 자동으로 넘어가게 되므로)
 				++iter;
 			}
-			else 
+			else
 			{
 				// (*WARNING) REMEMBER* that -> erase() func returns next iterator
 				iter = m_arrObj[i].erase(iter);
 			}
+		}
+	}
+}
+
+void CScene::DeletGroup(GROUP_TYPE _eTarget)
+{
+	// 그룹을 통채로 지우는 작업은 자주 있으므로, 전역 template 함수 만들어두었다.
+
+	Safe_Delete_Vec<CObject*>(m_arrObj[(UINT)_eTarget]);
+
+	// T에 해당하는 <CObject*>는 생략하고 함수처럼 작성해도 되지만,
+	// 이렇게 명시적으로 T 까지 꺽새에 넣어주는 것이 권장된다.
+	// (생략해도 컴파일러가 알아서 잡아준다.) (함수랑은 개념이 다르다는걸 기억하자.) (그냥 생략한 모습이 함수같은 것 뿐)
+}
+
+void CScene::DeleteAll()
+{
+	// 모든 Group, 즉, 모든 Object들이 삭제된다.
+
+	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
+	{
+		DeletGroup((GROUP_TYPE)i);
+	}
+}
+
+void CScene::CreateTile(UINT _iXCount, UINT _iYCount)
+{
+	CTexture* pTileTex = CResMgr::GetInst()->LoadTexture(L"Tile", L"texture\\tile\\test.bmp");
+
+	// 추후 쓰일 예정이므로, Scene에 count 값 기록해두기
+	m_iTileX = _iXCount;
+	m_iTileY = _iYCount;
+
+	// (N x N) 형태로 타일들 생성
+	for (UINT i = 0; i < _iXCount; ++i)
+	{
+		for (UINT j = 0; j < _iYCount; ++j)
+		{
+			CTile* pTile = new CTile();
+
+			pTile->SetPos(Vec2((float)(j * TILE_SIZE), (float)(i * TILE_SIZE)));
+			pTile->SetTexture(pTileTex); // 해당 tile 텍스쳐를 지정
+
+			AddObject(pTile, GROUP_TYPE::TILE);
 		}
 	}
 }

@@ -11,9 +11,16 @@ private:
 	vector<CObject*>	m_arrObj[(UINT)GROUP_TYPE::END];
 	wstring				m_strName; // Scene 고유 이름
 
+	// 자식이어도, Tile의 X, Y 값을 마음대로 변경할 수 있다면, 설계가 크게 꼬이게 되므로 prviate
+	UINT				m_iTileX; // 타일 가로 count
+	UINT				m_iTileY; // 타일 세로 count
+
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
+
+	UINT GetTileX() { return m_iTileX; }
+	UINT GetTileY() { return m_iTileY; }
 
 	// 모든 Scene이 Update/Render가 동일하므로 모두 부모(Scene)에서 정의함
 	virtual void Update();
@@ -30,13 +37,15 @@ public:
 		m_arrObj[(UINT)_eType].push_back(_pObj); 
 	}
 
+	// 해당 Group 벡터의 원본을 넘겨줘야 한다 (참조 & 로 return 해주는 것에 주의)
+	// 원본인 만큼, 훼손하면 안되므로 const 키워드 적용
+	const vector<CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
+
 	// Group을 지정하면, 해당 Group의 모든 Object들을 일괄 삭제해주는 함수 (부모에 정의한 이유)
 	void DeletGroup(GROUP_TYPE _eTarget);
 	void DeleteAll(); // 모든 Group즉, 모든 Object 삭제
 
-	// 해당 Group 벡터의 원본을 넘겨줘야 한다 (참조 & 로 return 해주는 것에 주의)
-	// 원본인 만큼, 훼손하면 안되므로 const 키워드 적용
-	const vector<CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
+	void CreateTile(UINT _iXCount, UINT _iYCount);
 
 public:
 	CScene();

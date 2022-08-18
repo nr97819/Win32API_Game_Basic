@@ -17,8 +17,12 @@ WCHAR szWindowClass[MAX_LOADSTRING];
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
+
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+
+// (*) Tile Count 입력 받는 Dialog 함수 선언부 (구현은 CScene_Tool.cpp 에 있다.)
+INT_PTR CALLBACK    TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -132,6 +136,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(g_hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), g_hWnd, About);
                 break;
+
+            // Tile Count 입력 받기 위한 Dialog 기능
+            case ID_MENU_TILE:
+            {
+                INT_PTR iRet = DialogBox(g_hInst, MAKEINTRESOURCE(IDD_TILE_COUNT), g_hWnd, TileCountProc); // CScene_Tool에 구현되어 있음
+                if (iRet)
+                {
+
+                }
+            
+            
+            }
+            break;
+
             case IDM_EXIT:
                 DestroyWindow(g_hWnd);
                 break;
@@ -159,7 +177,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);

@@ -8,12 +8,14 @@ class CScene_Tool :
 private:
 
 
-
 public:
     virtual void Update() override;
 
     virtual void Enter() override;
     virtual void Exit() override;
+
+public:
+    void SetTileIdx();
 
 public:
     CScene_Tool();

@@ -8,7 +8,7 @@
 
 CTile::CTile()
 	: m_pTileTex(nullptr)
-	, m_iIdx(3)
+	, m_iImgIdx(0)
 {
 	// 항상 정해진 Tile Size에 맞게 초기화 해준다.
 	SetScale(Vec2(TILE_SIZE, TILE_SIZE));
@@ -26,7 +26,7 @@ void CTile::Update()
 void CTile::Render(HDC _dc)
 {
 	// Texture가 없다면, 출력 X
-	if (nullptr == m_pTileTex || -1 == m_iIdx) // -1인 경우, 아무것도 참조하지 않음
+	if (nullptr == m_pTileTex || -1 == m_iImgIdx) // -1인 경우, 아무것도 참조하지 않음
 		return;
 
 	UINT iWidth = m_pTileTex->Width();
@@ -35,8 +35,8 @@ void CTile::Render(HDC _dc)
 	UINT iMaxCol = UINT(iWidth / TILE_SIZE);
 	UINT iMaxRow = UINT(iHeight / TILE_SIZE);
 
-	UINT iCurRow = m_iIdx / iMaxCol;
-	UINT iCurCol = m_iIdx % iMaxCol;
+	UINT iCurRow = m_iImgIdx / iMaxCol;
+	UINT iCurCol = m_iImgIdx % iMaxCol;
 
 	// 이미지 범위를 벗어난 index(행 값) 예외 처리 (최대 행은 정해져 있다.)
 	// (Col(열) 값은 어차피 iMaxCol로 나누니까 예외 처리 안해도 문제 없다.)
