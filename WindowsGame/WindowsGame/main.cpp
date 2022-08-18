@@ -1,4 +1,5 @@
-﻿#include "pch.h"
+﻿//#include "pch.h"
+#include "global.h"
 
 #include "framework.h"
 #include "WindowsGame.h"

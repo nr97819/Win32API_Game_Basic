@@ -40,7 +40,7 @@ void CSceneMgr::Init()
 	//m_arrScene[(UINT)SCENE_TYPE::STAGE_02] = new CScene_Stage_02();
 
 	// 현재 Scene 지정
-	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];
+	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::TOOL];
 	m_pCurScene->Enter(); // Scene에 진입
 }
 

@@ -23,6 +23,9 @@
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CTexture.cpp"
 
 
+#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CTile.cpp"
+
+
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CTimeMgr.cpp"
 
 

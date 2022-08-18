@@ -8,14 +8,15 @@ class CScene_Tool :
 private:
 
 
-public:
-    CScene_Tool();
-    ~CScene_Tool();
 
 public:
     virtual void Update() override;
 
     virtual void Enter() override;
     virtual void Exit() override;
+
+public:
+    CScene_Tool();
+    ~CScene_Tool();
 };
 
