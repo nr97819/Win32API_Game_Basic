@@ -1,10 +1,17 @@
 #include "CUI.h"
 
+#include "CKeyMgr.h"
+#include "CCamera.h"
 
-CUI::CUI()
+
+//CUI::CUI() {}
+CUI::CUI(bool _bCamAff)
 	: m_vecChildUI{}
 	, m_pParentUI(nullptr)
 	, m_vFinalPos{}
+	, m_bCamAffected(false)
+	, m_bMouseOn(false)
+	, m_bLBtnDown(false)
 {
 }
 
@@ -17,7 +24,8 @@ CUI::~CUI()
 void CUI::Update()
 {
 	/* [계층 구조] */
-
+	// 나 Update
+	// ...
 
 	// 자식 Update
 	update_child();
@@ -48,12 +56,12 @@ void CUI::FinalUpdate()
 		m_vFinalPos += vParentPos;
 	}
 
+	// (beta 기능) UI Mouse 체크
+	MouseOnCheck();
+
 	/* [자식] */
 	// 자식 FinalUpdate();
-	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
-	{
-		m_vecChildUI[i]->FinalUpdate();
-	}
+	finalupdate_child();
 }
 
 void CUI::Render(HDC _dc)
@@ -63,6 +71,11 @@ void CUI::Render(HDC _dc)
 	// UI도 Tile처럼 LeftTop을 본인의 Pos로 가진다.
 	Vec2 vPos = GetFinalPos(); // GetPos가 아닌, GetFinalPos를 이용하는 이유 알고 넘어가기
 	Vec2 vScale = GetScale();
+
+	if (m_bCamAffected)
+	{
+		vPos = CCamera::GetInst()->GetRenderPos(vPos);
+	}
 
 	Rectangle(_dc
 		, int(vPos.x)
@@ -82,10 +95,58 @@ void CUI::update_child()
 	}
 }
 
+void CUI::finalupdate_child()
+{
+	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
+	{
+		m_vecChildUI[i]->FinalUpdate();
+	}
+}
+
 void CUI::render_child(HDC _dc)
 {
 	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
 	{
 		m_vecChildUI[i]->Render(_dc);
 	}
+}
+
+void CUI::MouseOnCheck()
+{
+	Vec2 vMousePos = MOUSE_POS;
+	Vec2 vScale = GetScale();
+
+	// 만약 CamAffected UI라면, 카메라 renderPos를 이용
+	if (m_bCamAffected)
+	{
+		vMousePos = CCamera::GetInst()->GetRealPos(vMousePos);
+	}
+
+	// 마우스 커서가 UI 범위에 On된 상태라면,
+	if (m_vFinalPos.x <= vMousePos.x && m_vFinalPos.x + vScale.x >= vMousePos.x &&
+		m_vFinalPos.y <= vMousePos.y && m_vFinalPos.y + vScale.y >= vMousePos.y)
+	{
+		m_bMouseOn = true;
+	}
+	// 마우스 커서가 UI 범위에 On된 상태가 아니라면,
+	else
+	{
+		m_bMouseOn = false;
+	}
+}
+
+void CUI::MouseOn()
+{
+}
+
+void CUI::MouseLBtnDown()
+{
+}
+
+void CUI::MosueLBtnUp()
+{
+}
+
+void CUI::MosueLBtnClicked()
+{
 }

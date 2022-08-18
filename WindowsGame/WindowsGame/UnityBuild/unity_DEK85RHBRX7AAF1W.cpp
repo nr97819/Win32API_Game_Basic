@@ -28,15 +28,3 @@
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CMonster.cpp"
 
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CObject.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CPathMgr.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CPlayer.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CRes.cpp"
-

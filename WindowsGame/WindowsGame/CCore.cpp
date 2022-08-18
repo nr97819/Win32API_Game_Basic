@@ -10,6 +10,7 @@
 #include "CCollisionMgr.h"
 #include "CEventMgr.h"
 #include "CCamera.h"
+#include "CUIMgr.h"
 
 
 CCore::CCore()
@@ -85,7 +86,13 @@ void CCore::Progress()
 	/*		 Object Update		*/
 	/****************************/
 	CSceneMgr::GetInst()->Update(); // 모든 Scene과 그 아래 Object들 업데이트
+	// (*) Scene에 UI도 존재(Object)하므로, UI들도 SceneMgr을 통해서 Update() 된다.
+	
+	// 충돌 체크
 	CCollisionMgr::GetInst()->Update(); // 업데이트 후 변동 된 정보에서, 새로운 충돌 있는지 검증
+
+	// UI 이벤트 체크 (버튼 클릭, 등)
+	CUIMgr::GetInst()->Update();
 
 
 	/************************/

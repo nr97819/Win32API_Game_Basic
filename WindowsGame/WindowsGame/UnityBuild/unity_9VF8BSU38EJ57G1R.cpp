@@ -1,19 +1,4 @@
 
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CResMgr.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CScene.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CSceneMgr.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CScene_Start.cpp"
-
-
-#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CScene_Tool.cpp"
-
-
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CSound.cpp"
 
 
@@ -27,6 +12,9 @@
 
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CUI.cpp"
+
+
+#include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\CUIMgr.cpp"
 
 
 #include "C:\__ASTR__\SourceCode\Win32API_Game_Basic\WindowsGame\WindowsGame\func.cpp"
